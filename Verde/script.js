@@ -387,19 +387,35 @@ const MAPA_INFO = {
 /* ══════════════════════════════════════════
    LIGHTBOX – galería click
 ══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   LIGHTBOX – galería click
+══════════════════════════════════════════ */
 (function initLightbox() {
   const lightbox = document.getElementById('lightbox');
   const lbContent = document.getElementById('lightboxContent');
   const lbClose   = document.getElementById('lightboxClose');
   if (!lightbox || !lbContent || !lbClose) return;
 
-  const open  = (item) => {
-    const emoji = item.querySelector('.gal-emoji')?.textContent || '📷';
+  const open = (item) => {
+    const img   = item.querySelector('.gal-img');
     const label = item.querySelector('span')?.textContent || '';
-    lbContent.innerHTML = `<div>${emoji}</div><p style="font-size:1rem;color:rgba(255,255,255,.7);margin-top:1rem;">${label}</p>`;
+
+    if (img) {
+      // Mostramos la foto real en grande, reusando su src y alt.
+      lbContent.innerHTML = `
+        <img src="${img.src}" alt="${img.alt || label}">
+        <p class="lb-caption">${label}</p>
+      `;
+    } else {
+      // Respaldo por si alguna tarjeta aún no tiene <img> (p.ej. solo emoji).
+      const emoji = item.querySelector('.gal-emoji')?.textContent || '📷';
+      lbContent.innerHTML = `<div style="font-size:8rem;">${emoji}</div><p class="lb-caption">${label}</p>`;
+    }
+
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
+
   const close = () => {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
