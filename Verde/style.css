@@ -548,9 +548,11 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   break-inside: avoid; margin-bottom: 1rem;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-card); overflow: hidden;
+  position: relative;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 2rem 1rem; gap: .6rem; cursor: pointer;
+  padding: 0; gap: 0; cursor: pointer;
+  min-height: 200px;
   transition: transform var(--transition), border-color var(--transition);
 }
 .gal-item:hover {
@@ -559,10 +561,32 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   box-shadow: 0 8px 28px rgba(223,60,181,.18);
 }
 .gal-item.hidden { display: none; }
+
+/* Foto real dentro de la tarjeta */
+.gal-img {
+  width: 100%; height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.gal-tall .gal-img { min-height: 320px; }
+.gal-wide .gal-img { min-height: 140px; }
+
+/* Degradado oscuro abajo para que el texto siga siendo legible sobre la foto */
+.gal-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 50%);
+  pointer-events: none;
+}
+.gal-item span {
+  position: absolute; left: 0; right: 0; bottom: .8rem;
+  padding: 0 1rem; z-index: 1; color: #fff;
+  font-size: .78rem; text-align: center;
+}
+
+/* Emoji de respaldo: solo aplica a tarjetas antiguas que aún lo usen */
 .gal-emoji { font-size: 2.8rem; }
-.gal-item span { font-size: .78rem; color: var(--text-muted); text-align: center; }
-.gal-tall { padding: 3.5rem 1rem; }
-.gal-wide { padding: 2rem 3rem; }
 
 /* ══════════════════════════════════════════
    HIGIENE
@@ -717,7 +741,22 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   transition: background var(--transition);
 }
 .lightbox-close:hover { background: rgba(255,255,255,.18); }
-.lightbox-content { max-width: 90vw; max-height: 80vh; text-align: center; font-size: 8rem; }
+.lightbox-content {
+  max-width: 90vw; max-height: 85vh;
+  text-align: center; font-size: 8rem;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 1rem;
+}
+.lightbox-content img {
+  max-width: 90vw; max-height: 75vh;
+  width: auto; height: auto;
+  border-radius: var(--radius-card);
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  object-fit: contain;
+}
+.lightbox-content .lb-caption {
+  font-size: 1rem; color: rgba(255,255,255,.75);
+}
 
 /* ══════════════════════════════════════════
    FOOTER
