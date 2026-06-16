@@ -202,19 +202,19 @@
           </div>
         </div>
 
-        <!-- Tortillas de Espinaca -->
+        <!-- Tortilla de Flor de Calabaza -->
         <div class="dish-card reveal" data-dish="tortillas">
           <div class="dish-card-img">
-            <div class="dish-emoji">🫓</div>
+            <div class="dish-emoji">🌼</div>
           </div>
           <div class="dish-card-body">
             <span class="dish-tag">Básico</span>
-            <h3>Tortillas de Espinaca</h3>
-            <p>La tortilla, alma de México desde el 500 a.C., reinventada con espinaca. La harina de maíz nixtamalizado se hidrata con jugo verde para crear un disco nutritivo y vistoso.</p>
+            <h3>Tortilla de Flor de Calabaza</h3>
+            <p>Platillo prehispánico que aprovecha la flor de calabaza, ingrediente que los pueblos mesoamericanos cultivaban y consumían en su totalidad por su sabor y valor nutritivo.</p>
             <ul class="dish-benefits">
-              <li>🟢 Hierro y folato</li>
-              <li>🟢 Sin gluten</li>
-              <li>🟢 Milenaria</li>
+              <li>🟡 Rica en antioxidantes</li>
+              <li>🟢 Bajo en calorías</li>
+              <li>🌼 Prehispánica</li>
             </ul>
             <button class="btn-recipe" data-dish="tortillas">Ver receta</button>
           </div>
@@ -541,7 +541,27 @@
         <button class="filter-btn" data-filter="preparacion">Preparación</button>
         <button class="filter-btn" data-filter="feria">Feria</button>
       </div>
+
       <div class="galeria-masonry" id="galeria">
+        <div class="gal-item reveal" data-cat="ingredientes">
+    <img src="img/ingredientes.jpg" alt="ingredientes" class="gal-img">
+    <span>Ingredientes</span></div>
+    <div class="gal-item gal-tall reveal" data-cat="preparacion">
+    <img src="img/preparacion.jpg" alt="Preparando" class="gal-img">
+    <span>Preparando</span></div>
+    <div class="gal-item gal-tall reveal" data-cat="preparacion">
+    <img src="img/preparacion2.jpg" alt="Preparando" class="gal-img">
+    <span>Preparando</span></div>
+    <div class="gal-item gal-tall reveal" data-cat="preparacion">
+    <img src="img/preparacion3.jpg" alt="Preparando" class="gal-img">
+    <span>Preparando</span></div>
+    <div class="gal-item reveal" data-cat="ingredientes">
+    <img src="img/Xoconostle.jpeg" alt="Xoconostle" class="gal-img">
+    <span>Xoconostle</span></div>
+    <div class="gal-item gal-tall reveal" data-cat="preparacion">
+    <img src="img/Salsa de Xoconostle.jpeg" alt="Preparando" class="gal-img">
+    <span>Preparando salsa de Xoconostle </span></div>
+
         <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🌵</div><span>Nopal fresco</span></div>
         <div class="gal-item gal-tall reveal" data-cat="preparacion"><div class="gal-emoji">👩‍🍳</div><span>Preparando el panqué</span></div>
         <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🍑</div><span>Xoconostle</span></div>
@@ -807,25 +827,30 @@
       },
 
       tortillas: {
-        emoji: '🫓',
-        title: 'Tortillas de Espinaca',
-        tag: 'Básico · Milenario',
-        historia: 'La tortilla es el alimento fundamental de México con una tradición de más de 2,500 años. En náhuatl se llamaba <em>tlaxcalli</em>. Los españoles la bautizaron "tortilla" por su parecido con los panes planos europeos. Esta versión con espinaca incorpora la hidratación de la harina con jugo verde, creando un disco nutritivo y vistoso que une tradición prehispánica con ingredientes actuales.',
+        emoji: '🌼',
+        title: 'Tortilla de Flor de Calabaza',
+        tag: 'Básico · Prehispánico',
+        historia: 'La tortilla de flor de calabaza es un platillo tradicional de México que tiene sus raíces en la época prehispánica. Los pueblos indígenas cultivaban la calabaza y aprovechaban todas sus partes, incluyendo la flor, por su sabor y valor nutritivo. Desde tiempos antiguos, la flor de calabaza formó parte de la alimentación de diversas culturas mesoamericanas. Con la llegada de los españoles, se incorporaron nuevos ingredientes y técnicas de cocina, pero la flor de calabaza siguió siendo un alimento importante. Actualmente, se utiliza en quesadillas, sopas, guisos y tortillas.',
         ingredientes: [
-          '2 tazas de harina de maíz nixtamalizado (Maseca)',
-          '1 manojo grande de espinacas frescas',
-          '1½ tazas de agua tibia',
-          '1 pizca de sal',
+          '8 flores de calabaza limpias',
+          '4 huevos',
+          '1 cucharada de aceite',
+          'Sal al gusto',
+          'Pimienta al gusto (opcional)',
         ],
         pasos: [
-          'Licúa las hojas de espinaca con el agua tibia hasta obtener un líquido verde uniforme.',
-          'En un tazón grande, mezcla la harina de maíz con la sal.',
-          'Agrega el líquido de espinaca poco a poco a la harina, amasando hasta obtener una masa suave y manejable que no se pegue.',
-          'Divide la masa en bolitas del tamaño de una pelota de golf. Aplana cada una entre dos bolsas de plástico o con una tortillera.',
-          'Cuece cada tortilla en comal caliente 1–1.5 min por lado hasta que aparezcan manchas doradas y se infle ligeramente.',
+          'Lava y limpia las flores de calabaza, retirando el pistilo del centro.',
+          'Bate los huevos en un recipiente y agrega sal al gusto.',
+          'Pica las flores de calabaza en trozos pequeños.',
+          'Mezcla las flores con el huevo batido.',
+          'Calienta el aceite en un sartén.',
+          'Vierte la mezcla y cocina a fuego medio.',
+          'Cuando la parte inferior esté dorada, voltea la tortilla con cuidado.',
+          'Cocina por el otro lado hasta que quede bien cocida.',
+          'Sirve caliente.',
         ],
-        curiosidad: 'El proceso de nixtamalización —hervir el maíz con cal— fue un descubrimiento mesoamericano que aumenta el valor nutritivo del maíz y libera la niacina (vitamina B3), previniendo enfermedades como la pelagra. Es uno de los grandes aportes de Mesoamérica a la alimentación mundial.',
-        beneficios: ['🌽 Libre de gluten', '🥬 Hierro y folato de la espinaca', '💪 Calcio del nixtamal', '🌿 Sin conservadores'],
+        curiosidad: 'La calabaza, junto con el maíz y el frijol, forma parte de "las tres hermanas", la base agrícola de Mesoamérica. Los pueblos prehispánicos no desperdiciaban nada de esta planta: comían la pulpa, las semillas, las guías e incluso la flor, como en esta receta.',
+        beneficios: ['🌼 Rica en antioxidantes', '🥚 Proteína del huevo', '💪 Bajo en calorías', '🌿 Sin conservadores'],
       },
     };
 
