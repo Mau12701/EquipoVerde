@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verde Hidalgo Colores México – Feria Gastronómica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">🌵 Verde Hidalgo</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#sobre">Proyecto</a></li>
+      <li><a href="#platillos">Platillos</a></li>
+      <li><a href="#ingredientes">Ingredientes</a></li>
+      <li><a href="#mapa">Mapa</a></li>
+      <li><a href="#timeline">Historia</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-parallax" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">🌵 Estado de Hidalgo, México</span>
+      <h1 class="hero-title">Feria Gastronómica<br/><em>Tradicional de Hidalgo</em></h1>
+      <p class="hero-subtitle">Rescatando nuestras raíces a través de los sabores de nuestra tierra.</p>
+      <a href="#platillos" class="btn-hero">Explorar Platillos</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SOBRE EL PROYECTO
+  ═══════════════════════════════════════════ -->
+  <section class="section sobre" id="sobre">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Conoce más</span>
+        <h2>Sobre el Proyecto</h2>
+        <p>Una iniciativa escolar que celebra la identidad gastronómica de Hidalgo, preservando saberes ancestrales e impulsando el orgullo regional.</p>
+      </div>
+      <div class="cards-grid cards-4">
+        <div class="info-card reveal">
+          <div class="info-card-icon">🎯</div>
+          <h3>Objetivo</h3>
+          <p>Difundir y preservar la gastronomía hidalguense entre estudiantes, familias y comunidad a través de experiencias sensoriales y educativas.</p>
+        </div>
+        <div class="info-card reveal">
+          <div class="info-card-icon">🏛️</div>
+          <h3>Importancia Cultural</h3>
+          <p>Los platillos representan siglos de historia, técnica y cosmovisión de los pueblos originarios del Altiplano Hidalguense.</p>
+        </div>
+        <div class="info-card reveal">
+          <div class="info-card-icon">🤝</div>
+          <h3>Comunidad</h3>
+          <p>Fortalece los lazos comunitarios, apoya a productores locales y posiciona a Hidalgo como destino de turismo gastronómico.</p>
+        </div>
+        <div class="info-card reveal">
+          <div class="info-card-icon">📚</div>
+          <h3>Estudiantes</h3>
+          <p>Desarrolla competencias en investigación, emprendimiento, nutrición y valoración del patrimonio cultural intangible de México.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PLATILLOS
+  ═══════════════════════════════════════════ -->
+  <section class="section platillos" id="platillos">
+    <div class="container">
+      <div class="section-header light">
+        <span class="section-label">Lo que presentamos</span>
+        <h2>Platillos Tradicionales</h2>
+        <p>Siete recetas que condensan el alma de Hidalgo en cada bocado.</p>
+      </div>
+      <div class="cards-grid cards-flex">
+
+        <!-- Panqué de Nopal -->
+        <div class="dish-card reveal" data-dish="panque">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🌵</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Repostería</span>
+            <h3>Panqué de Nopal</h3>
+            <p>Esponjoso panqué elaborado con pulpa de nopal fresco, rico en fibra y antioxidantes. Una fusión perfecta entre tradición y nutrición.</p>
+            <ul class="dish-benefits">
+              <li>🟢 Alto en fibra</li>
+              <li>🟢 Antiinflamatorio</li>
+              <li>🟢 Bajo en azúcar</li>
+            </ul>
+            <button class="btn-recipe" data-dish="panque">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Salsa de Xoconostle -->
+        <div class="dish-card reveal" data-dish="xoconostle">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🌶️</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Salsas</span>
+            <h3>Salsa de Xoconostle</h3>
+            <p>Preparación agridulce a base del xoconostle, tuna ácida del nopal. Acompañante insustituible de carnes y antojitos hidalguenses.</p>
+            <ul class="dish-benefits">
+              <li>🔴 Vitamina C</li>
+              <li>🔴 Digestiva</li>
+              <li>🔴 Antioxidante</li>
+            </ul>
+            <button class="btn-recipe" data-dish="xoconostle">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Chilopani -->
+        <div class="dish-card reveal" data-dish="chilopani">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🦗</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Entomofagia</span>
+            <h3>Chilopani</h3>
+            <p>Bebida ceremonial de la región del Mezquital elaborada con agua de tuna y chinicuiles. Herencia directa de las culturas otomí-hñahñú.</p>
+            <ul class="dish-benefits">
+              <li>🟡 Proteína completa</li>
+              <li>🟡 Rico en hierro</li>
+              <li>🟡 Sostenible</li>
+            </ul>
+            <button class="btn-recipe" data-dish="chilopani">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Buñuelos -->
+        <div class="dish-card reveal" data-dish="bunuelos">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🍯</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Dulces típicos</span>
+            <h3>Buñuelos con Miel de Piloncillo</h3>
+            <p>Discos crujientes de masa de harina bañados en jarabe de piloncillo y canela. Presentes en ferias y fiestas patronales desde la época colonial.</p>
+            <ul class="dish-benefits">
+              <li>🟠 Energizante</li>
+              <li>🟠 Hierro natural</li>
+              <li>🟠 Sin conservadores</li>
+            </ul>
+            <button class="btn-recipe" data-dish="bunuelos">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Codornices Nativas -->
+        <div class="dish-card reveal" data-dish="codornices">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🐦</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Carne</span>
+            <h3>Codornices Nativas</h3>
+            <p>Ave sagrada del México prehispánico, conocida en náhuatl como <em>zollin</em>. Preparadas en adobo enchilado de guajillo y ancho, son un platillo festivo con raíces milenarias.</p>
+            <ul class="dish-benefits">
+              <li>🟤 Alta en proteína</li>
+              <li>🟤 Rica en hierro</li>
+              <li>🟤 Sabor ancestral</li>
+            </ul>
+            <button class="btn-recipe" data-dish="codornices">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Agua de Bugambilia -->
+        <div class="dish-card reveal" data-dish="bugambilia">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🌸</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Bebida</span>
+            <h3>Agua de Bugambilia</h3>
+            <p>Bebida tradicional de origen medicinal, con el color rosa intenso característico de la flor de bugambilia. Refrescante, con limón y miel, popular en todo el país.</p>
+            <ul class="dish-benefits">
+              <li>🟣 Antiinflamatoria</li>
+              <li>🟣 Digestiva</li>
+              <li>🟣 Vitamina C</li>
+            </ul>
+            <button class="btn-recipe" data-dish="bugambilia">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Tortillas de Espinaca -->
+        <div class="dish-card reveal" data-dish="tortillas">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🫓</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Básico</span>
+            <h3>Tortillas de Espinaca</h3>
+            <p>La tortilla, alma de México desde el 500 a.C., reinventada con espinaca. La harina de maíz nixtamalizado se hidrata con jugo verde para crear un disco nutritivo y vistoso.</p>
+            <ul class="dish-benefits">
+              <li>🟢 Hierro y folato</li>
+              <li>🟢 Sin gluten</li>
+              <li>🟢 Milenaria</li>
+            </ul>
+            <button class="btn-recipe" data-dish="tortillas">Ver receta</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       INGREDIENTES
+  ═══════════════════════════════════════════ -->
+  <section class="section ingredientes" id="ingredientes">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">De nuestra tierra</span>
+        <h2>Ingredientes Tradicionales</h2>
+        <p>Los protagonistas silenciosos detrás de cada platillo hidalguense.</p>
+      </div>
+      <div class="ingredientes-grid">
+
+        <div class="ing-card reveal">
+          <div class="ing-emoji">🌵</div>
+          <h4>Nopal</h4>
+          <p>Cactácea sagrada de México. Sus pencas y frutos son fuente de vitaminas, minerales y mucílagos que benefician el sistema digestivo.</p>
+          <span class="ing-tag">Antidiabético · Fibra · Vit. C</span>
+        </div>
+
+        <div class="ing-card reveal">
+          <div class="ing-emoji">🍑</div>
+          <h4>Xoconostle</h4>
+          <p>Tuna ácida del nopal cardón. Su sabor agridulce aporta complejidad a salsas y guisos, además de propiedades antioxidantes únicas.</p>
+          <span class="ing-tag">Vit. C · Antioxidante · Digestivo</span>
+        </div>
+
+        <div class="ing-card reveal">
+          <div class="ing-emoji">🦗</div>
+          <h4>Chapulines</h4>
+          <p>Insectos comestibles con hasta 70% de proteína. Alimento ancestral de México reconocido internacionalmente por su sostenibilidad.</p>
+          <span class="ing-tag">Proteína · Hierro · Omega-3</span>
+        </div>
+
+        <div class="ing-card reveal">
+          <div class="ing-emoji">🐛</div>
+          <h4>Chinicuiles</h4>
+          <p>Larvas del agave rojo, ingrediente clave de la cocina del Mezquital. Se consumen asados, fritos o en salsas ceremoniales.</p>
+          <span class="ing-tag">Proteína · Aminoácidos · Hierro</span>
+        </div>
+
+        <div class="ing-card reveal">
+          <div class="ing-emoji">🌿</div>
+          <h4>Maguey</h4>
+          <p>Planta símbolo de Hidalgo. Del maguey se obtiene el aguamiel, el pulque, las pencas para cocinar y las fibras para textiles.</p>
+          <span class="ing-tag">Prebiótico · Minerales · Versátil</span>
+        </div>
+
+        <div class="ing-card reveal">
+          <div class="ing-emoji">🍯</div>
+          <h4>Piloncillo</h4>
+          <p>Azúcar morena sin refinar extraída de la caña. Aporta hierro, calcio y un sabor a melaza que define los dulces tradicionales de Hidalgo.</p>
+          <span class="ing-tag">Hierro · Calcio · Energía</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MAPA CULTURAL
+  ═══════════════════════════════════════════ -->
+  <section class="section mapa-section" id="mapa">
+    <div class="container">
+      <div class="section-header light">
+        <span class="section-label">Geografía del sabor</span>
+        <h2>Mapa Cultural de Hidalgo</h2>
+        <p>Haz clic en los puntos del mapa para descubrir la riqueza de cada región.</p>
+      </div>
+      <div class="mapa-wrapper">
+        <svg class="mapa-svg" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa cultural de Hidalgo">
+          <!-- Silueta simplificada de Hidalgo -->
+          <defs>
+            <radialGradient id="mapGrad" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#2E7D3220"/>
+              <stop offset="100%" stop-color="#1B5E2040"/>
+            </radialGradient>
+          </defs>
+          <path class="mapa-state" d="M80,60 L160,40 L240,55 L320,45 L420,80 L440,130 L430,200 L400,270 L360,320 L280,350 L200,360 L130,330 L80,280 L60,200 L50,130 Z" fill="url(#mapGrad)" stroke="#2E7D32" stroke-width="2"/>
+          <!-- Ríos decorativos -->
+          <path d="M120,150 Q200,170 300,140 Q380,120 420,160" fill="none" stroke="#4CAF5040" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+          <!-- Punto: Actopan -->
+          <g class="mapa-punto" data-info="actopan" tabindex="0" role="button" aria-label="Actopan">
+            <circle cx="200" cy="160" r="14" fill="#2E7D32" opacity="0.9"/>
+            <circle cx="200" cy="160" r="20" fill="#2E7D3230" class="pulse-ring"/>
+            <text x="200" y="165" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🌵</text>
+            <text x="200" y="185" text-anchor="middle" fill="#2E7D32" font-size="10" font-family="Poppins" font-weight="600">Actopan</text>
+          </g>
+
+          <!-- Punto: El Arenal -->
+          <g class="mapa-punto" data-info="arenal" tabindex="0" role="button" aria-label="El Arenal">
+            <circle cx="310" cy="130" r="14" fill="#C62828" opacity="0.9"/>
+            <circle cx="310" cy="130" r="20" fill="#C6282830" class="pulse-ring"/>
+            <text x="310" y="135" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🌶️</text>
+            <text x="310" y="155" text-anchor="middle" fill="#C62828" font-size="10" font-family="Poppins" font-weight="600">El Arenal</text>
+          </g>
+
+          <!-- Punto: Mezquital -->
+          <g class="mapa-punto" data-info="mezquital" tabindex="0" role="button" aria-label="Valle del Mezquital">
+            <circle cx="150" cy="240" r="14" fill="#D4A017" opacity="0.9"/>
+            <circle cx="150" cy="240" r="20" fill="#D4A01730" class="pulse-ring"/>
+            <text x="150" y="245" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🐛</text>
+            <text x="150" y="265" text-anchor="middle" fill="#D4A017" font-size="10" font-family="Poppins" font-weight="600">Mezquital</text>
+          </g>
+
+          <!-- Punto: Pachuca -->
+          <g class="mapa-punto" data-info="pachuca" tabindex="0" role="button" aria-label="Pachuca">
+            <circle cx="300" cy="220" r="14" fill="#6D4C41" opacity="0.9"/>
+            <circle cx="300" cy="220" r="20" fill="#6D4C4130" class="pulse-ring"/>
+            <text x="300" y="225" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🏛️</text>
+            <text x="300" y="245" text-anchor="middle" fill="#6D4C41" font-size="10" font-family="Poppins" font-weight="600">Pachuca</text>
+          </g>
+        </svg>
+        <div class="mapa-info-panel" id="mapaInfoPanel">
+          <p class="mapa-info-default">👆 Selecciona un punto del mapa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       LÍNEA DEL TIEMPO
+  ═══════════════════════════════════════════ -->
+  <section class="section timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">A través de los siglos</span>
+        <h2>Historia Gastronómica</h2>
+        <p>Un recorrido por los momentos clave que dieron forma a la cocina tradicional de Hidalgo.</p>
+      </div>
+
+      <!-- TIMELINE — estructura robusta, sin dependencia del CSS externo -->
+      <div style="position:relative; max-width:860px; margin:0 auto; padding:2rem 0;">
+
+        <!-- Línea central vertical -->
+        <div style="position:absolute; left:50%; top:0; bottom:0; width:2px;
+                    background:linear-gradient(to bottom,transparent,#D4A017 8%,#D4A017 92%,transparent);
+                    transform:translateX(-50%); pointer-events:none;"></div>
+
+        <!-- Item 1 — IZQUIERDA -->
+        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
+          <!-- Contenido izquierdo -->
+          <div style="flex:1; padding-right:3rem; text-align:right;">
+            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
+                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px; text-align:left;">
+              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
+                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
+                Época Prehispánica · Antes del 1521
+              </span>
+              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
+                         color:#fff; margin:0 0 .5rem;">Los primeros sabores</h4>
+              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
+                Los pueblos otomí y tolteca cultivaban nopal y maguey, y cosechaban chapulines
+                y chinicuiles como alimento sagrado. La cocina era ritual y medicinal.
+              </p>
+            </div>
+          </div>
+          <!-- Dot central -->
+          <div style="position:absolute; left:50%; transform:translateX(-50%);
+                      width:48px; height:48px; border-radius:50%;
+                      background:#0D0D0D; border:2.5px solid #D4A017;
+                      display:flex; align-items:center; justify-content:center;
+                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">🌽</div>
+          <!-- Espacio derecho vacío -->
+          <div style="flex:1; padding-left:3rem;"></div>
+        </div>
+
+        <!-- Item 2 — DERECHA -->
+        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
+          <!-- Espacio izquierdo vacío -->
+          <div style="flex:1; padding-right:3rem;"></div>
+          <!-- Dot central -->
+          <div style="position:absolute; left:50%; transform:translateX(-50%);
+                      width:48px; height:48px; border-radius:50%;
+                      background:#0D0D0D; border:2.5px solid #D4A017;
+                      display:flex; align-items:center; justify-content:center;
+                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">⛪</div>
+          <!-- Contenido derecho -->
+          <div style="flex:1; padding-left:3rem;">
+            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
+                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px;">
+              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
+                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
+                Influencia Colonial · Siglos XVI–XVIII
+              </span>
+              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
+                         color:#fff; margin:0 0 .5rem;">Fusión de culturas</h4>
+              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
+                La llegada española introdujo el trigo, el piloncillo, la bugambilia y el aceite.
+                Los buñuelos y las tortillas de colores nacen de este encuentro culinario único.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 — IZQUIERDA -->
+        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
+          <div style="flex:1; padding-right:3rem; text-align:right;">
+            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
+                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px; text-align:left;">
+              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
+                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
+                Gastronomía Actual · Siglo XXI
+              </span>
+              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
+                         color:#fff; margin:0 0 .5rem;">Tradición con identidad</h4>
+              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
+                Chefs e investigadores rescatan las recetas ancestrales. En 2010, la UNESCO declara
+                la gastronomía mexicana Patrimonio Cultural Inmaterial de la Humanidad.
+              </p>
+            </div>
+          </div>
+          <div style="position:absolute; left:50%; transform:translateX(-50%);
+                      width:48px; height:48px; border-radius:50%;
+                      background:#0D0D0D; border:2.5px solid #D4A017;
+                      display:flex; align-items:center; justify-content:center;
+                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">🏆</div>
+          <div style="flex:1; padding-left:3rem;"></div>
+        </div>
+
+        <!-- Item 4 — DERECHA -->
+        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
+          <div style="flex:1; padding-right:3rem;"></div>
+          <div style="position:absolute; left:50%; transform:translateX(-50%);
+                      width:48px; height:48px; border-radius:50%;
+                      background:#0D0D0D; border:2.5px solid #D4A017;
+                      display:flex; align-items:center; justify-content:center;
+                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">🐦</div>
+          <div style="flex:1; padding-left:3rem;">
+            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
+                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px;">
+              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
+                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
+                Patrimonio Vivo · Siempre
+              </span>
+              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
+                         color:#fff; margin:0 0 .5rem;">Codornices &amp; Saberes Nativos</h4>
+              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
+                La codorniz (<em>zollin</em> en náhuatl) —ave sagrada teotihuacana— y la bugambilia
+                de origen sudamericano se fusionan con la identidad culinaria de Hidalgo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 — IZQUIERDA (Feria Escolar) -->
+        <div class="reveal" style="display:flex; align-items:flex-start; position:relative;">
+          <div style="flex:1; padding-right:3rem; text-align:right;">
+            <div style="background:linear-gradient(135deg,rgba(46,125,50,.15),rgba(212,160,23,.08));
+                        border:1px solid rgba(46,125,50,.4);
+                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px; text-align:left;">
+              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
+                           text-transform:uppercase; color:#4CAF50; margin-bottom:.4rem;">
+                Feria Escolar · 2024–2025
+              </span>
+              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
+                         color:#fff; margin:0 0 .5rem;">Verde Hidalgo Colores México</h4>
+              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
+                Estudiantes de Actopan investigan, preparan y presentan <strong>7 platillos</strong>
+                tradicionales, transmitiendo el conocimiento a las nuevas generaciones.
+              </p>
+            </div>
+          </div>
+          <div style="position:absolute; left:50%; transform:translateX(-50%);
+                      width:56px; height:56px; border-radius:50%;
+                      background:linear-gradient(135deg,#2E7D32,#4CAF50);
+                      display:flex; align-items:center; justify-content:center;
+                      font-size:1.6rem; box-shadow:0 0 28px rgba(46,125,50,.5); z-index:2;">🏫</div>
+          <div style="flex:1; padding-left:3rem;"></div>
+        </div>
+
+      </div><!-- /timeline wrapper -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ESTADÍSTICAS
+  ═══════════════════════════════════════════ -->
+  <section class="section stats-section" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="7">0</span>
+          <span class="stat-label">Platillos Tradicionales</span>
+        </div>
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="6">0</span>
+          <span class="stat-label">Ingredientes Regionales</span>
+        </div>
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="1000" data-suffix="+">0</span>
+          <span class="stat-label">Años de Tradición</span>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-badge">UNESCO</div>
+          <span class="stat-label">Patrimonio Cultural Inmaterial</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       GALERÍA
+  ═══════════════════════════════════════════ -->
+  <section class="section galeria-section" id="galeria">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Imágenes del proyecto</span>
+        <h2>Galería</h2>
+        <p>Momentos de preparación, ingredientes y convivencia comunitaria.</p>
+      </div>
+      <div class="galeria-filter">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="ingredientes">Ingredientes</button>
+        <button class="filter-btn" data-filter="preparacion">Preparación</button>
+        <button class="filter-btn" data-filter="feria">Feria</button>
+      </div>
+      <div class="galeria-masonry" id="galeria">
+        <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🌵</div><span>Nopal fresco</span></div>
+        <div class="gal-item gal-tall reveal" data-cat="preparacion"><div class="gal-emoji">👩‍🍳</div><span>Preparando el panqué</span></div>
+        <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🍑</div><span>Xoconostle</span></div>
+        <div class="gal-item reveal" data-cat="feria"><div class="gal-emoji">🏮</div><span>Puesto en la feria</span></div>
+        <div class="gal-item gal-wide reveal" data-cat="feria"><div class="gal-emoji">🎉</div><span>Comunidad en la feria</span></div>
+        <div class="gal-item reveal" data-cat="preparacion"><div class="gal-emoji">🍯</div><span>Piloncillo fundido</span></div>
+        <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🐛</div><span>Chinicuiles</span></div>
+        <div class="gal-item gal-tall reveal" data-cat="preparacion"><div class="gal-emoji">🌶️</div><span>Salsa de xoconostle</span></div>
+        <div class="gal-item reveal" data-cat="feria"><div class="gal-emoji">📸</div><span>Estudiantes presentando</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HIGIENE Y SEGURIDAD
+  ═══════════════════════════════════════════ -->
+  <section class="section higiene-section" id="higiene">
+    <div class="container">
+      <div class="section-header light">
+        <span class="section-label">Buenas prácticas</span>
+        <h2>Medidas de Higiene y Seguridad</h2>
+        <p>La seguridad alimentaria es tan importante como la tradición.</p>
+      </div>
+      <div class="higiene-grid">
+        <div class="higiene-card reveal">
+          <div class="higiene-icon">🙌</div>
+          <h4>Lavado de Manos</h4>
+          <p>Antes y después de manipular alimentos con agua y jabón durante al menos 20 segundos.</p>
+        </div>
+        <div class="higiene-card reveal">
+          <div class="higiene-icon">👒</div>
+          <h4>Uso de Cofia</h4>
+          <p>Todo el equipo gastronómico usa cofia o gorro para evitar la contaminación del cabello en los alimentos.</p>
+        </div>
+        <div class="higiene-card reveal">
+          <div class="higiene-icon">😷</div>
+          <h4>Cubrebocas</h4>
+          <p>Obligatorio durante la preparación para garantizar la higiene respiratoria en la manipulación de alimentos.</p>
+        </div>
+        <div class="higiene-card reveal">
+          <div class="higiene-icon">🥦</div>
+          <h4>Desinfección</h4>
+          <p>Todos los vegetales e ingredientes se lavan y desinfectan con solución de cloro o yodo antes de su uso.</p>
+        </div>
+        <div class="higiene-card reveal">
+          <div class="higiene-icon">🔪</div>
+          <h4>Utensilios Seguros</h4>
+          <p>Uso exclusivo de utensilios limpios y esterilizados. Tablas de colores por tipo de alimento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EQUIPO
+  ═══════════════════════════════════════════ -->
+  <section class="section equipo-section" id="equipo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Las personas detrás del proyecto</span>
+        <h2>Equipo Verde Hidalgo</h2>
+      </div>
+      <div class="equipo-grid">
+        <div class="equipo-card reveal">
+          <div class="equipo-avatar">👩‍🍳</div>
+          <h4>Área Gastronómica</h4>
+          <p>Responsables de la investigación, preparación y presentación de los platillos tradicionales de Hidalgo.</p>
+          <span class="equipo-tag">Cocina · Recetas · Degustación</span>
+        </div>
+        <div class="equipo-card reveal">
+          <div class="equipo-avatar">📦</div>
+          <h4>Abastecimiento</h4>
+          <p>Encargados de conseguir ingredientes frescos y de temporada, priorizando productores locales del estado.</p>
+          <span class="equipo-tag">Compras · Logística · Proveedores</span>
+        </div>
+        <div class="equipo-card reveal">
+          <div class="equipo-avatar">🎤</div>
+          <h4>Presentadores</h4>
+          <p>El equipo de difusión comunica la historia y beneficios de cada platillo al público asistente a la feria.</p>
+          <span class="equipo-tag">Comunicación · Educación · Cultura</span>
+        </div>
+        <div class="equipo-card reveal equipo-docente">
+          <div class="equipo-avatar">👩‍🏫</div>
+          <h4>Asesoría Docente</h4>
+          <p class="docente-nombre">Profra. Adriana García Pérez</p>
+          <p>Guía y asesora el desarrollo del proyecto garantizando su rigor académico y su impacto educativo.</p>
+          <span class="equipo-tag">Asesoría · Pedagogía · Investigación</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PRESUPUESTO
+  ═══════════════════════════════════════════ -->
+  <section class="section presupuesto-section" id="presupuesto">
+    <div class="container container-sm">
+      <div class="section-header light">
+        <span class="section-label">Transparencia financiera</span>
+        <h2>Presupuesto del Proyecto</h2>
+      </div>
+      <div class="presupuesto-card reveal">
+        <table class="presupuesto-table">
+          <thead>
+            <tr><th>Concepto</th><th>Costo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="pres-dot green"></span> Salsa de Xoconostle</td><td>$150 MXN</td></tr>
+            <tr><td><span class="pres-dot yellow"></span> Chilopani</td><td>$160 MXN</td></tr>
+            <tr><td><span class="pres-dot green2"></span> Panqué de Nopal</td><td>$120 MXN</td></tr>
+            <tr><td><span class="pres-dot orange"></span> Buñuelos con Piloncillo</td><td>$150 MXN</td></tr>
+            <tr><td><span class="pres-dot gray"></span> Material Ecológico</td><td>$70 MXN</td></tr>
+            <tr><td><span class="pres-dot gray2"></span> Papelería</td><td>$60 MXN</td></tr>
+            <tr><td><span class="pres-dot brown"></span> Transporte y Gas</td><td>$80 MXN</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td><strong>Total</strong></td><td><strong>$790 MXN</strong></td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">🌵 Verde Hidalgo<br/><em>Colores México</em></div>
+          <p>Proyecto escolar de preservación gastronómica del Estado de Hidalgo. Con orgullo y sabor.</p>
+        </div>
+        <div class="footer-links">
+          <h5>Secciones</h5>
+          <ul>
+            <li><a href="#sobre">Sobre el proyecto</a></li>
+            <li><a href="#platillos">Platillos</a></li>
+            <li><a href="#ingredientes">Ingredientes</a></li>
+            <li><a href="#timeline">Historia</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h5>Redes Sociales</h5>
+          <div class="social-icons">
+            <a href="#" class="social-btn" aria-label="Instagram">📷 Instagram</a>
+            <a href="#" class="social-btn" aria-label="Facebook">📘 Facebook</a>
+            <a href="#" class="social-btn" aria-label="TikTok">🎵 TikTok</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Verde Hidalgo Colores México · Asesoría: Profra. Adriana García Pérez · Proyecto Escolar</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       MODAL DE RECETAS
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       LIGHTBOX
+  ═══════════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <div class="lightbox-content" id="lightboxContent"></div>
+  </div>
+
+  <!-- ═══ Estilos extra: grid flexible + timeline mobile ═══ -->
+  <style>
+    /* Grid 4 → flexible para 7 tarjetas */
+    .cards-flex {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Timeline: colapso en mobile */
+    @media (max-width: 680px) {
+      [style*="display:flex"][style*="position:relative"] {
+        flex-direction: column !important;
+        padding-left: 4rem !important;
+      }
+      [style*="display:flex"][style*="position:relative"] > div:first-child,
+      [style*="display:flex"][style*="position:relative"] > div:last-child {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        text-align: left !important;
+      }
+      [style*="position:absolute"][style*="left:50%"] {
+        left: 0 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+
+  <!-- ═══ Datos adicionales de recetas ═══ -->
+  <script>
+    /* Estas recetas se inyectan ANTES de que script.js registre sus handlers,
+       de modo que window.RECIPES queda disponible cuando script.js lo lea.
+       Si script.js no usa window.RECIPES, el modal se construye abajo. */
+    window.EXTRA_RECIPES = {
+      codornices: {
+        emoji: '🐦',
+        title: 'Codornices Nativas en Adobo',
+        tag: 'Carne · Prehispánico',
+        historia: 'Las codornices habitan México desde tiempos prehispánicos y fueron conocidas en náhuatl como <em>zollin</em>. Eran aves sagradas protagonistas de mitos solares y aparecen en la cerámica teotihuacana y en diversos códices. La emblemática Codorniz de Moctezuma (<em>Cyrtonyx montezumae</em>) se adaptó a los climas semiáridos y bosques de pino-encino del Altiplano.',
+        ingredientes: [
+          '2 codornices limpias y sin vísceras',
+          'Sal y pimienta negra al gusto',
+          '1 cdita. de mostaza Dijon (opcional)',
+          '2 cdas. de aceite de oliva',
+          '4 chiles guajillo secos',
+          '2 chiles anchos secos',
+          '1 diente de ajo grande',
+          '¼ de cebolla blanca',
+          '½ cdita. de comino en polvo',
+          '½ taza de agua o caldo de pollo',
+          'Sal al gusto para el adobo',
+        ],
+        pasos: [
+          'Limpia los chiles retirando semillas y venas. Ásalos en comal unos segundos, luego remójalos en agua hirviendo 15 minutos.',
+          'Escurre los chiles y licúa con cebolla, ajo, comino, agua y sal hasta obtener salsa tersa. Cuela si deseas textura fina.',
+          'Seca las codornices con papel absorbente. Úntales aceite, mostaza, sal y pimienta.',
+          'Dora las codornices en sartén u olla con un chorrito de aceite, aprox. 3–4 min por lado.',
+          'Vierte el adobo sobre las codornices doradas. Tapa y cocina a fuego lento 10–15 min. Rectifica la sal.',
+        ],
+        curiosidad: 'La codorniz fue tan importante para los aztecas que aparece como ofrenda en el Códice Borgia. Hoy la Codorniz Moctezuma es una especie emblemática de México y símbolo de la biodiversidad del Altiplano.',
+        beneficios: ['💪 Alta proteína magra', '🔩 Rica en hierro', '🧠 Vitaminas del grupo B', '🌿 Baja en grasa'],
+      },
+
+      bugambilia: {
+        emoji: '🌸',
+        title: 'Agua de Bugambilia',
+        tag: 'Bebida · Tradicional',
+        historia: 'La bugambilia llegó a México desde Sudamérica durante la época colonial y fue adoptada por la medicina tradicional por sus propiedades antiinflamatorias y expectorantes. Con el tiempo, la infusión de sus flores se convirtió en una bebida fresca y colorida, representativa de muchas regiones del país.',
+        ingredientes: [
+          '20 a 30 flores de bugambilia (morada o rosa intenso)',
+          'Jugo de 6 a 8 limones',
+          '2 a 3 litros de agua',
+          'Miel o endulzante al gusto',
+          'Hielos al gusto',
+          'Hojas de menta o hierbabuena (opcional, para decorar)',
+        ],
+        pasos: [
+          'Lava muy bien las flores y retira la parte blanca o amarilla del centro.',
+          'Hierve 1 taza de agua y agrega las flores. Deja hervir 5 minutos hasta que el agua tome color rosa intenso.',
+          'Retira del fuego y deja reposar 10 minutos.',
+          'Cuela el líquido para retirar las flores.',
+          'En una jarra mezcla el extracto con el resto del agua. Agrega endulzante y jugo de limón.',
+          'Añade hielo y sirve fría. Decora con hojas de menta si deseas.',
+        ],
+        curiosidad: 'La bugambilia (<em>Bougainvillea</em>) fue nombrada así en honor al navegante francés Louis Antoine de Bougainville, quien la llevó a Europa en el siglo XVIII. En México es símbolo de alegría y aparece en casi todos los jardines y fachadas del país.',
+        beneficios: ['🌸 Antiinflamatoria', '🍋 Vitamina C del limón', '💧 Hidratante', '🧘 Propiedades calmantes'],
+      },
+
+      tortillas: {
+        emoji: '🫓',
+        title: 'Tortillas de Espinaca',
+        tag: 'Básico · Milenario',
+        historia: 'La tortilla es el alimento fundamental de México con una tradición de más de 2,500 años. En náhuatl se llamaba <em>tlaxcalli</em>. Los españoles la bautizaron "tortilla" por su parecido con los panes planos europeos. Esta versión con espinaca incorpora la hidratación de la harina con jugo verde, creando un disco nutritivo y vistoso que une tradición prehispánica con ingredientes actuales.',
+        ingredientes: [
+          '2 tazas de harina de maíz nixtamalizado (Maseca)',
+          '1 manojo grande de espinacas frescas',
+          '1½ tazas de agua tibia',
+          '1 pizca de sal',
+        ],
+        pasos: [
+          'Licúa las hojas de espinaca con el agua tibia hasta obtener un líquido verde uniforme.',
+          'En un tazón grande, mezcla la harina de maíz con la sal.',
+          'Agrega el líquido de espinaca poco a poco a la harina, amasando hasta obtener una masa suave y manejable que no se pegue.',
+          'Divide la masa en bolitas del tamaño de una pelota de golf. Aplana cada una entre dos bolsas de plástico o con una tortillera.',
+          'Cuece cada tortilla en comal caliente 1–1.5 min por lado hasta que aparezcan manchas doradas y se infle ligeramente.',
+        ],
+        curiosidad: 'El proceso de nixtamalización —hervir el maíz con cal— fue un descubrimiento mesoamericano que aumenta el valor nutritivo del maíz y libera la niacina (vitamina B3), previniendo enfermedades como la pelagra. Es uno de los grandes aportes de Mesoamérica a la alimentación mundial.',
+        beneficios: ['🌽 Libre de gluten', '🥬 Hierro y folato de la espinaca', '💪 Calcio del nixtamal', '🌿 Sin conservadores'],
+      },
+    };
+
+    /* Parche para inyectar datos extra en el sistema de modales de script.js.
+       Se ejecuta DESPUÉS de que script.js cargue (DOMContentLoaded ya pasó). */
+    document.addEventListener('DOMContentLoaded', function () {
+      // Esperar a que script.js haya definido RECIPES (si lo hace)
+      setTimeout(injectExtraRecipes, 100);
+    });
+
+    function injectExtraRecipes() {
+      // Si script.js expuso un objeto RECIPES global, lo extendemos
+      if (window.RECIPES) {
+        Object.assign(window.RECIPES, window.EXTRA_RECIPES);
+      }
+
+      // Registrar botones de las nuevas tarjetas para abrir modal propio
+      document.querySelectorAll('[data-dish="codornices"], [data-dish="bugambilia"], [data-dish="tortillas"]')
+        .forEach(function(btn) {
+          btn.addEventListener('click', function () {
+            var dish = btn.dataset.dish || btn.closest('[data-dish]')?.dataset.dish;
+            if (dish) openExtraModal(dish);
+          });
+        });
+    }
+
+    function openExtraModal(dish) {
+      var r = window.EXTRA_RECIPES[dish];
+      if (!r) return;
+
+      var overlay = document.getElementById('modalOverlay');
+      var content = document.getElementById('modalContent');
+      if (!overlay || !content) return;
+
+      content.innerHTML =
+        '<div style="text-align:center;margin-bottom:1.5rem;">' +
+          '<div style="font-size:4rem;margin-bottom:.5rem;">' + r.emoji + '</div>' +
+          '<h2 style="font-family:Montserrat,sans-serif;font-size:1.8rem;font-weight:900;margin:0 0 .25rem;">' + r.title + '</h2>' +
+          '<span style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;">' + r.tag + '</span>' +
+        '</div>' +
+
+        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">🏛 Historia</h4>' +
+        '<p style="font-size:.9rem;line-height:1.8;color:rgba(255,255,255,.85);margin-bottom:1.5rem;">' + r.historia + '</p>' +
+
+        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">🌿 Ingredientes</h4>' +
+        '<ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.4rem;list-style:none;padding:0;margin-bottom:1.5rem;">' +
+          r.ingredientes.map(function(i) {
+            return '<li style="display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;background:rgba(255,255,255,.04);border-radius:8px;font-size:.84rem;color:rgba(255,255,255,.8);">' +
+                     '<span style="color:#D4A017;font-size:.6rem;">✦</span>' + i + '</li>';
+          }).join('') +
+        '</ul>' +
+
+        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">👨‍🍳 Preparación</h4>' +
+        '<div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;">' +
+          r.pasos.map(function(p, i) {
+            return '<div style="display:flex;gap:.75rem;padding:.75rem;background:rgba(255,255,255,.03);border-radius:8px;border-left:2px solid #2E7D32;">' +
+                     '<span style="font-family:Montserrat,sans-serif;font-size:.78rem;font-weight:800;color:#4CAF50;min-width:24px;">' + String(i+1).padStart(2,'0') + '</span>' +
+                     '<span style="font-size:.84rem;color:rgba(255,255,255,.8);line-height:1.6;">' + p + '</span>' +
+                   '</div>';
+          }).join('') +
+        '</div>' +
+
+        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">✨ Curiosidad</h4>' +
+        '<div style="padding:1.2rem;background:linear-gradient(135deg,rgba(212,160,23,.08),rgba(212,160,23,.04));border:1px solid rgba(212,160,23,.2);border-radius:12px;font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:1.5rem;">' + r.curiosidad + '</div>' +
+
+        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">💚 Beneficios</h4>' +
+        '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem;">' +
+          r.beneficios.map(function(b) {
+            return '<div style="padding:.9rem;background:rgba(46,125,50,.1);border:1px solid rgba(46,125,50,.25);border-radius:12px;text-align:center;font-size:.8rem;color:rgba(255,255,255,.85);">' + b + '</div>';
+          }).join('') +
+        '</div>';
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
