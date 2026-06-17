@@ -4,42 +4,992 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Verde Hidalgo Colores México – Feria Gastronómica</title>
+
+  <!-- Fuentes y librerías -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <style>
+    /* ============================================================
+       TOKENS – PALETA FLORAL MEXICANA
+       ============================================================ */
+    :root {
+      --cyan:          #01B2D4;
+      --cyan-dim:      rgba(1,178,212,.18);
+      --green-mid:     #629E46;
+      --green-deep:    #3d6b1e;
+      --green-light:   #7fc050;
+      --gold:          #FCD102;
+      --gold-dim:      rgba(252,209,2,.18);
+      --orange:        #EE5802;
+      --orange-dim:    rgba(238,88,2,.18);
+      --magenta:       #DF3CB5;
+      --magenta-dim:   rgba(223,60,181,.16);
+      --purple:        #5D45BE;
+      --purple-dim:    rgba(93,69,190,.16);
+      --red-dark:      #c43c10;
+      --brown:         #7a5030;
+
+      --bg:            #1b1430;
+      --bg-2:          #221a3a;
+      --surface:       rgba(255,255,255,.07);
+      --border:        rgba(255,255,255,.12);
+      --text:          rgba(255,255,255,.94);
+      --text-muted:    rgba(255,255,255,.62);
+
+      --radius-card:   18px;
+      --radius-sm:     10px;
+      --transition:    .35s cubic-bezier(.4,0,.2,1);
+      --font-display:  'Playfair Display', serif;
+      --font-body:     'Poppins', sans-serif;
+
+      --shadow:   0 8px 40px rgba(198,40,40,.12);
+      --radius:   14px;
+      --light:    #f8f0e3;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 62.5%; }
+    body {
+      font-family: var(--font-body);
+      font-size: 1.6rem;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 0%, rgba(1,178,212,.10) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 90% 15%, rgba(252,209,2,.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 60% at 50% 100%, rgba(238,88,2,.08) 0%, transparent 55%),
+        var(--bg);
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    /* ============================================================
+       SCROLL PROGRESS BAR
+       ============================================================ */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--gold), var(--magenta));
+      width: 0%; z-index: 9999; transition: width .1s linear;
+    }
+
+    /* ============================================================
+       LOADER
+       ============================================================ */
+    #loader-wrap {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    #loader-wrap.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-text {
+      font-family: var(--font-display);
+      color: var(--text);
+      font-size: 2.2rem;
+      letter-spacing: .3em;
+      text-align: center;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    .loader-icon { font-size: 3.2rem; color: var(--gold); margin-bottom: 1.6rem; display: block; }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    /* ============================================================
+       HEADER / NAV
+       ============================================================ */
+    header {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 0 4rem;
+      transition: var(--transition);
+    }
+    header.scrolled {
+      background: rgba(27,20,48,.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 30px rgba(0,0,0,.3);
+      padding: 0 4rem;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 7.2rem;
+    }
+    .logo a {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .logo span { color: var(--gold); }
+    .logo small {
+      display: block; font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+      letter-spacing: .15em; color: rgba(255,255,255,.55); text-transform: uppercase;
+    }
+    nav ul {
+      display: flex; gap: 2.4rem; align-items: center;
+    }
+    nav ul li a {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.75);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: .4rem 0;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .menu-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: .8rem;
+    }
+    .menu-toggle span {
+      width: 26px; height: 2px;
+      background: var(--text); display: block;
+      transition: var(--transition);
+    }
+
+    /* ============================================================
+       SECCIONES
+       ============================================================ */
+    section { padding: 9rem 0; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 3rem; }
+    .container-sm { max-width: 720px; margin: 0 auto; padding: 0 3rem; }
+
+    .section-header { text-align: center; margin-bottom: 6rem; }
+    .section-eyebrow {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--cyan); letter-spacing: .3em;
+      text-transform: uppercase; margin-bottom: 1.2rem;
+      display: block;
+    }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      font-weight: 700; color: var(--text); line-height: 1.15;
+    }
+    .section-header p {
+      max-width: 680px; margin: 1.8rem auto 0;
+      color: var(--text-muted); font-size: 1.65rem; line-height: 1.75;
+      opacity: .85;
+    }
+    .divider {
+      width: 6rem; height: 4px;
+      background: linear-gradient(90deg, var(--cyan), var(--gold));
+      border-radius: 2px; margin: 1.8rem auto 0;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    #hero {
+      position: relative;
+      height: 100vh; min-height: 640px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(1,178,212,.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 75% 30%, rgba(252,209,2,.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 80%, rgba(238,88,2,.2) 0%, transparent 50%),
+        linear-gradient(160deg, #1a0f08 0%, #3d1a00 40%, #1a0f08 100%);
+    }
+    .hero-bg::after {
+      content:''; position:absolute;inset:0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent 0px, transparent 40px,
+        rgba(255,255,255,.018) 40px, rgba(255,255,255,.018) 41px
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 2rem;
+      max-width: 920px;
+    }
+    .hero-eyebrow {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--cyan); letter-spacing: .35em;
+      text-transform: uppercase; margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp .8s .3s forwards;
+    }
+    .hero-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 6.5vw, 6.6rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp .9s .5s forwards;
+    }
+    .hero-content h1 em { color: var(--gold); font-style: italic; }
+    .hero-subtitle {
+      font-size: 1.9rem; color: rgba(255,255,255,.78);
+      font-weight: 400; letter-spacing: .02em;
+      font-family: var(--font-display);
+      margin-bottom: 1.8rem;
+      opacity: 0; animation: fadeUp .9s .65s forwards;
+    }
+    .hero-buttons {
+      display: flex; gap: 1.6rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .9s .95s forwards;
+    }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: .8rem;
+      padding: 1.4rem 3.2rem; border-radius: 4rem;
+      font-size: 1.4rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; border: none;
+      background: linear-gradient(135deg, var(--orange), #c83a00);
+      color: #fff;
+      box-shadow: 0 6px 28px rgba(238,88,2,.4);
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(238,88,2,.5); }
+    .hero-scroll-hint {
+      position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .8rem;
+      color: rgba(255,255,255,.4); font-size: 1.1rem; letter-spacing: .2em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    /* ============================================================
+       CARDS
+       ============================================================ */
+    .cards-grid { display: grid; gap: 2.4rem; }
+    .cards-4 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .cards-flex { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 3rem 2.6rem;
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .info-card:hover {
+      background: rgba(1,178,212,.12);
+      border-color: rgba(1,178,212,.4);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(1,178,212,.15);
+    }
+    .info-card-icon { font-size: 3.2rem; margin-bottom: 1.6rem; }
+    .info-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 700; color: var(--text); margin-bottom: 1rem;
+    }
+    .info-card p { font-size: 1.45rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* Dish cards */
+    .dish-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .dish-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(223,60,181,.4);
+      box-shadow: 0 16px 48px rgba(223,60,181,.18);
+    }
+    .dish-card-img {
+      height: 140px;
+      background: linear-gradient(135deg,
+        rgba(98,158,70,.22) 0%,
+        rgba(238,88,2,.18) 40%,
+        rgba(223,60,181,.14) 70%,
+        rgba(93,69,190,.12) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .dish-card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(252,209,2,.10), transparent 65%);
+      pointer-events: none;
+    }
+    .dish-emoji { font-size: 3.5rem; }
+
+    .dish-card-body {
+      padding: 2rem 1.8rem;
+      display: flex; flex-direction: column; gap: .8rem; flex: 1;
+    }
+    .dish-tag {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      background: var(--magenta-dim);
+      padding: .3rem 1rem;
+      border-radius: 99px;
+      align-self: flex-start;
+    }
+    .dish-card-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 700; color: var(--text);
+    }
+    .dish-card-body p { font-size: 1.4rem; color: var(--text-muted); line-height: 1.7; }
+
+    .dish-benefits { display: flex; flex-direction: column; gap: .4rem; margin-top: .4rem; }
+    .dish-benefits li { font-size: 1.3rem; color: var(--text-muted); }
+
+    .btn-recipe {
+      display: inline-block;
+      margin-top: auto;
+      padding: .8rem 1.8rem;
+      background: transparent;
+      border: 1px solid rgba(98,158,70,.4);
+      color: var(--green-light);
+      font-size: 1.3rem; font-weight: 600; letter-spacing: .08em;
+      border-radius: 99px;
+      transition: var(--transition);
+      font-family: var(--font-body);
+      cursor: pointer;
+    }
+    .btn-recipe:hover {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+      color: #fff;
+      transform: scale(1.03);
+    }
+
+    /* Ingredientes */
+    .ingredientes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .ing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 2.4rem 1.8rem;
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .ing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(252,209,2,.4);
+      box-shadow: 0 12px 32px rgba(0,0,0,.35);
+    }
+    .ing-emoji { font-size: 3rem; margin-bottom: 1.2rem; }
+    .ing-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: .8rem;
+    }
+    .ing-card p { font-size: 1.35rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
+    .ing-tag {
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Mapa */
+    .mapa-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; align-items: start;
+    }
+    .mapa-svg {
+      width: 100%; max-width: 520px;
+      border-radius: var(--radius-card);
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+    }
+    .mapa-punto { cursor: pointer; transition: transform .3s, filter .3s; }
+    .mapa-punto:hover { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(1,178,212,.4)); }
+    .pulse-ring { animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { r:20; opacity:.25; } 50% { r:26; opacity:0; } }
+
+    .mapa-info-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 2.4rem;
+      min-height: 200px;
+      display: flex; flex-direction: column; justify-content: center;
+      transition: background .3s;
+    }
+    .mapa-info-panel:hover { background: rgba(255,255,255,.05); }
+    .mapa-info-default { color: var(--text-muted); font-size: 1.4rem; text-align: center; }
+    .mapa-info-content h3 {
+      font-family: var(--font-display);
+      font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: .4rem;
+    }
+    .mapa-info-content .region-tag {
+      font-size: 1rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--cyan);
+      margin-bottom: 1rem; display: block;
+    }
+    .mapa-info-content p { font-size: 1.4rem; color: var(--text-muted); line-height: 1.7; }
+    .mapa-info-content .platillos-list {
+      display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.2rem;
+    }
+    .mapa-info-content .platillo-chip {
+      font-size: 1.1rem; padding: .4rem 1.2rem;
+      background: rgba(1,178,212,.12);
+      border: 1px solid rgba(1,178,212,.25);
+      border-radius: 99px; color: var(--cyan);
+    }
+
+    /* Stats */
+    .stats-section {
+      background:
+        radial-gradient(ellipse 60% 80% at 15% 50%, rgba(98,158,70,.34) 0%, transparent 62%),
+        radial-gradient(ellipse 50% 60% at 85% 30%, rgba(1,178,212,.26) 0%, transparent 58%),
+        radial-gradient(ellipse 40% 50% at 50% 90%, rgba(238,88,2,.22) 0%, transparent 55%),
+        linear-gradient(135deg, #221a3a 0%, #1b1430 55%, #2a1a3a 100%);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 3rem; text-align: center;
+    }
+    .stat-item { padding: 1.5rem; transition: transform .3s; }
+    .stat-item:hover { transform: translateY(-4px); }
+    .stat-number {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4.8rem);
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .5rem;
+      text-shadow: 0 0 40px rgba(252,209,2,.35);
+    }
+    .stat-label {
+      font-size: 1.3rem; color: rgba(255,255,255,.65);
+      font-weight: 500; text-transform: uppercase; letter-spacing: .1em;
+    }
+    .stat-badge {
+      display: inline-block; padding: .8rem 1.6rem;
+      background: var(--gold); color: #000;
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 900;
+      border-radius: var(--radius-sm); margin-bottom: .5rem;
+      box-shadow: 0 4px 20px rgba(252,209,2,.4);
+    }
+
+    /* Galería */
+    .galeria-filter { display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: 3rem; justify-content: center; }
+    .filter-btn {
+      font-size: 1.2rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; padding: .8rem 2rem;
+      border-radius: 99px; border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: var(--transition);
+      cursor: pointer;
+      background: transparent;
+      font-family: var(--font-body);
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(93,69,190,.4);
+      transform: scale(1.03);
+    }
+
+    .galeria-masonry { columns: 3; column-gap: 1.5rem; }
+    .gal-item {
+      break-inside: avoid; margin-bottom: 1.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); overflow: hidden;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 0; gap: 0; cursor: pointer;
+      min-height: 200px;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .gal-item:hover {
+      transform: scale(1.02) translateY(-4px);
+      border-color: rgba(223,60,181,.45);
+      box-shadow: 0 12px 32px rgba(223,60,181,.18);
+    }
+    .gal-item.hidden { display: none; }
+    .gal-img {
+      width: 100%; height: 100%;
+      min-height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .gal-tall .gal-img { min-height: 320px; }
+    .gal-wide .gal-img { min-height: 140px; }
+    .gal-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .gal-item span {
+      position: absolute; left: 0; right: 0; bottom: 1rem;
+      padding: 0 1rem; z-index: 1; color: #fff;
+      font-size: 1.3rem; text-align: center;
+      font-weight: 500;
+    }
+
+    /* Higiene */
+    .higiene-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .higiene-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 2.4rem 1.8rem;
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .higiene-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(127,192,80,.4);
+      box-shadow: 0 12px 32px rgba(98,158,70,.18);
+    }
+    .higiene-icon { font-size: 3rem; margin-bottom: 1.2rem; }
+    .higiene-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: .8rem;
+    }
+    .higiene-card p { font-size: 1.35rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* EQUIPO */
+    .equipo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .team-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); padding: 2.4rem 1.8rem;
+      text-align: center;
+      transition: var(--transition);
+      backdrop-filter: blur(4px);
+    }
+    .team-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(1,178,212,.4);
+      box-shadow: 0 16px 40px rgba(1,178,212,.14);
+    }
+    .team-card.teacher-card {
+      border-color: rgba(252,209,2,.35);
+      background: linear-gradient(135deg, rgba(252,209,2,.07), var(--surface));
+    }
+    .team-avatar {
+      font-size: 3.6rem; margin-bottom: 1.2rem;
+      width: 9rem; height: 9rem; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--magenta));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.8rem;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(238,88,2,.3);
+    }
+    .team-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: .4rem;
+    }
+    .team-card .role {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--cyan); letter-spacing: .08em; text-transform: uppercase;
+    }
+    .teacher-card .team-avatar {
+      background: linear-gradient(135deg, var(--green-mid), var(--brown));
+    }
+    .teacher-card .role { color: var(--gold); }
+
+    /* Presupuesto */
+    .presupuesto-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-card); overflow: hidden;
+    }
+    .presupuesto-table { width: 100%; border-collapse: collapse; }
+    .presupuesto-table th,
+    .presupuesto-table td {
+      padding: 1.2rem 1.8rem; text-align: left;
+      font-size: 1.4rem; border-bottom: 1px solid var(--border);
+    }
+    .presupuesto-table th {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(252,209,2,.06);
+    }
+    .presupuesto-table td { color: var(--text); }
+    .presupuesto-table tfoot td {
+      font-family: var(--font-display); font-weight: 900;
+      color: #fff; font-size: 1.5rem; border-bottom: none;
+    }
+    .presupuesto-table tbody tr { transition: background .3s; }
+    .presupuesto-table tbody tr:hover { background: rgba(255,255,255,.04); }
+
+    .pres-dot {
+      display: inline-block; width: 10px; height: 10px;
+      border-radius: 50%; margin-right: .8rem; vertical-align: middle;
+    }
+    .pres-dot.green   { background: var(--green-light); }
+    .pres-dot.yellow  { background: var(--gold); }
+    .pres-dot.green2  { background: var(--green-mid); }
+    .pres-dot.orange  { background: var(--orange); }
+    .pres-dot.gray    { background: #78909C; }
+    .pres-dot.gray2   { background: #90A4AE; }
+    .pres-dot.brown   { background: #8a6040; }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(180deg, var(--bg) 0%, #150f26 100%);
+      border-top: 1px solid var(--border);
+      padding: 5rem 0 3rem; text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2.2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--green-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 1.6rem;
+    }
+    .footer-logo em {
+      background: linear-gradient(135deg, var(--orange), var(--magenta));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-style: normal;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem; margin-bottom: 4rem; text-align: left;
+    }
+    .footer-brand p { font-size: 1.4rem; color: var(--text-muted); line-height: 1.7; max-width: 400px; }
+    .footer-links h5,
+    .footer-social h5 {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1.6rem;
+    }
+    .footer-links ul { display: flex; flex-direction: column; gap: .8rem; }
+    .footer-links a {
+      font-size: 1.3rem; color: var(--text-muted);
+      transition: color .3s, transform .3s; display: inline-block;
+    }
+    .footer-links a:hover {
+      color: var(--green-light);
+      transform: translateX(4px);
+    }
+    .social-icons { display: flex; flex-direction: column; gap: .8rem; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: .8rem;
+      font-size: 1.3rem; color: var(--text-muted);
+      padding: .6rem 1.2rem; border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .social-btn:hover {
+      border-color: rgba(223,60,181,.45);
+      color: var(--magenta);
+      background: var(--magenta-dim);
+      box-shadow: 0 4px 14px rgba(223,60,181,.2);
+      transform: translateY(-2px);
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem; text-align: center;
+    }
+    .footer-bottom p { font-size: 1.2rem; color: var(--text-muted); }
+
+    /* ============================================================
+       MODAL – ¡AMPLIADO Y CON TEXTO GRANDE!
+       ============================================================ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.87); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: #241c3d;
+      border: 1px solid rgba(252,209,2,.18);
+      border-radius: 24px;
+      width: min(920px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 3rem 3.5rem;
+      position: relative;
+      transform: translateY(20px) scale(.97);
+      transition: transform .35s ease;
+      scrollbar-width: thin;
+      scrollbar-color: var(--cyan) transparent;
+    }
+    .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+
+    .modal-content {
+      color: #fff;
+      font-size: 1.6rem;
+      line-height: 1.8;
+    }
+    .modal-content h2 {
+      font-size: 2.8rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    .modal-content h4 {
+      font-size: 1.4rem !important;
+      margin-top: 2rem !important;
+      margin-bottom: 0.8rem !important;
+      color: var(--gold);
+    }
+    .modal-content p {
+      font-size: 1.5rem !important;
+      line-height: 1.8 !important;
+      margin-bottom: 1.2rem !important;
+    }
+    .modal-content ul {
+      font-size: 1.4rem !important;
+      gap: 0.6rem !important;
+    }
+    .modal-content ul li {
+      padding: 0.8rem 1rem !important;
+      font-size: 1.4rem !important;
+    }
+    .modal-content .step {
+      padding: 1rem 1.2rem !important;
+      font-size: 1.4rem !important;
+    }
+    .modal-content .step span:first-child {
+      font-size: 1.2rem !important;
+      min-width: 32px !important;
+    }
+    .modal-content .curiosity-box {
+      padding: 1.8rem !important;
+      font-size: 1.5rem !important;
+      line-height: 1.8 !important;
+    }
+    .modal-content .benefit-box {
+      padding: 1.2rem !important;
+      font-size: 1.4rem !important;
+    }
+
+    .modal-close {
+      position: sticky; top: 0; float: right;
+      font-size: 1.8rem; color: var(--text-muted);
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: rgba(255,255,255,.06);
+      transition: background .3s, color .3s;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .modal-close:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+    /* ============================================================
+       LIGHTBOX
+       ============================================================ */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,.92);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s ease;
+    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-size: 2.4rem; color: #fff;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: rgba(255,255,255,.08);
+      transition: background .3s;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,.18); }
+    .lightbox-content {
+      max-width: 90vw; max-height: 85vh;
+      text-align: center; font-size: 8rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1rem;
+    }
+    .lightbox-content img {
+      max-width: 90vw; max-height: 75vh;
+      width: auto; height: auto;
+      border-radius: var(--radius-card);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      object-fit: contain;
+    }
+    .lightbox-content .lb-caption {
+      font-size: 1.2rem; color: rgba(255,255,255,.75);
+    }
+
+    /* ============================================================
+       TIMELINE
+       ============================================================ */
+    .timeline-wrapper {
+      position: relative; max-width: 860px; margin: 0 auto; padding: 2rem 0;
+    }
+    .timeline-line {
+      position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--gold) 8%, var(--gold) 92%, transparent);
+      transform: translateX(-50%); pointer-events: none;
+    }
+    .tl-item {
+      display: flex; align-items: flex-start; margin-bottom: 4rem; position: relative;
+    }
+    .tl-item.left { flex-direction: row; }
+    .tl-item.right { flex-direction: row-reverse; }
+    .tl-content {
+      flex: 1; background: rgba(255,255,255,.04);
+      border: 1px solid rgba(212,160,23,.2);
+      border-radius: 16px; padding: 1.8rem;
+      max-width: 320px;
+      backdrop-filter: blur(4px);
+      transition: var(--transition);
+    }
+    .tl-content:hover { background: rgba(198,40,40,.1); border-color: rgba(198,40,40,.3); }
+    .tl-content span { display: block; font-size: .9rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+    .tl-content h4 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
+    .tl-content p { font-size: 1.2rem; color: rgba(255,255,255,.7); line-height: 1.6; margin: 0; }
+    .tl-dot {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--bg); border: 2.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; box-shadow: 0 0 20px rgba(212,160,23,.35); z-index: 2;
+    }
+    .tl-dot.special { background: linear-gradient(135deg, var(--green-mid), var(--green-light)); border: none; width: 56px; height: 56px; font-size: 1.8rem; box-shadow: 0 0 28px rgba(46,125,50,.5); }
+    .tl-spacer { flex: 1; }
+
+    /* Acentos */
+    .dish-card[data-dish="panque"]      { border-bottom: 3px solid var(--green-mid); }
+    .dish-card[data-dish="xoconostle"]  { border-bottom: 3px solid var(--orange); }
+    .dish-card[data-dish="chilopani"]   { border-bottom: 3px solid var(--gold); }
+    .dish-card[data-dish="bunuelos"]    { border-bottom: 3px solid var(--cyan); }
+    .dish-card[data-dish="codornices"]  { border-bottom: 3px solid var(--magenta); }
+    .dish-card[data-dish="bugambilia"]  { border-bottom: 3px solid var(--purple); }
+    .dish-card[data-dish="tortillas"]   { border-bottom: 3px solid var(--green-light); }
+    .dish-card[data-dish="caracol"]     { border-bottom: 3px solid var(--cyan); }
+
+    .section:nth-of-type(1) .section-eyebrow { color: var(--cyan); }
+    .section:nth-of-type(2) .section-eyebrow { color: var(--gold); }
+    .section:nth-of-type(3) .section-eyebrow { color: var(--orange); }
+    .section:nth-of-type(4) .section-eyebrow { color: var(--magenta); }
+    .section:nth-of-type(5) .section-eyebrow { color: var(--purple); }
+    .section:nth-of-type(6) .section-eyebrow { color: var(--cyan); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1024px) {
+      .mapa-wrapper { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .galeria-masonry { columns: 2; }
+    }
+    @media (max-width: 768px) {
+      html { font-size: 56%; }
+      header { padding: 0 2rem; }
+      header.scrolled { padding: 0 2rem; }
+      .menu-toggle { display: flex; }
+      nav#main-nav {
+        position: fixed; top: 7.2rem; left: 0; right: 0;
+        background: rgba(27,20,48,.97); backdrop-filter: blur(12px);
+        max-height: 0; overflow: hidden; transition: var(--transition);
+      }
+      nav#main-nav.open { max-height: 70vh; overflow-y: auto; }
+      nav#main-nav ul { flex-direction: column; gap: 0; padding: 1rem 0; }
+      nav#main-nav ul li { width: 100%; }
+      nav#main-nav ul li a { display: block; padding: 1.6rem 3rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .footer-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+      .footer-brand p { margin: 0 auto; }
+      .footer-links ul { align-items: center; }
+      .social-icons { align-items: center; }
+      .galeria-masonry { columns: 1; }
+      .tl-item { flex-direction: column !important; padding-left: 4rem; margin-bottom: 3rem; }
+      .tl-item .tl-content { max-width: 100%; }
+      .tl-item .tl-dot { left: 0; transform: none; }
+      .tl-item .tl-spacer { display: none; }
+      .tl-item.left .tl-content { text-align: left; }
+      .tl-item.right .tl-content { text-align: left; }
+      section { padding: 6rem 0; }
+      .modal-box { padding: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .cards-4 { grid-template-columns: 1fr; }
+      .cards-flex { grid-template-columns: 1fr; }
+    }
+
+    [data-aos] { pointer-events: none; }
+    [data-aos].aos-animate { pointer-events: auto; }
+  </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════
-       NAVIGATION
-  ═══════════════════════════════════════════ -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-brand">Verde Hidalgo Colores México</div>
-    <button class="nav-toggle" id="navToggle" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#sobre">Proyecto</a></li>
-      <li><a href="#platillos">Platillos</a></li>
-      <li><a href="#ingredientes">Ingredientes</a></li>
-      <li><a href="#mapa">Mapa</a></li>
-      <li><a href="#timeline">Historia</a></li>
-      <li><a href="#galeria">Galería</a></li>
-      <li><a href="#equipo">Equipo</a></li>
-    </ul>
-  </nav>
+  <!-- LOADER -->
+  <div id="loader-wrap">
+    <div class="loader-text"><i class="fa fa-pepper-hot loader-icon"></i>Verde Hidalgo</div>
+  </div>
 
-  <!-- ═══════════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════════ -->
+  <!-- PROGRESS BAR -->
+  <div id="progress-bar"></div>
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="nav-inner">
+      <div class="logo">
+        <a href="#hero">Verde <span>Hidalgo</span><small>Colores México</small></a>
+      </div>
+      <div class="menu-toggle" id="menuToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </div>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#sobre">Proyecto</a></li>
+          <li><a href="#platillos">Platillos</a></li>
+          <li><a href="#ingredientes">Ingredientes</a></li>
+          <li><a href="#mapa">Mapa</a></li>
+          <li><a href="#timeline">Historia</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-parallax" id="heroBg"></div>
+    <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <span class="hero-eyebrow">🌵 Estado de Hidalgo, México</span>
-      <h1 class="hero-title">Feria Gastronómica<br/><em>Tradicional de Hidalgo</em></h1>
+      <h1>Feria Gastronómica<br/><em>Tradicional de Hidalgo</em></h1>
       <p class="hero-subtitle">Rescatando nuestras raíces a través de los sabores de nuestra tierra.</p>
-      <a href="#platillos" class="btn-hero">Explorar Platillos</a>
+      <div class="hero-buttons">
+        <a href="#platillos" class="btn-hero">Explorar Platillos</a>
+      </div>
     </div>
     <div class="hero-scroll-hint">
       <span>Scroll</span>
@@ -47,33 +997,31 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       SOBRE EL PROYECTO
-  ═══════════════════════════════════════════ -->
+  <!-- SOBRE EL PROYECTO -->
   <section class="section sobre" id="sobre">
     <div class="container">
-      <div class="section-header">
-        <span class="section-label">Conoce más</span>
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-eyebrow">Conoce más</span>
         <h2>Sobre el Proyecto</h2>
         <p>Una iniciativa escolar que celebra la identidad gastronómica de Hidalgo, preservando saberes ancestrales e impulsando el orgullo regional.</p>
       </div>
       <div class="cards-grid cards-4">
-        <div class="info-card reveal">
+        <div class="info-card" data-aos="fade-up" data-aos-delay="0">
           <div class="info-card-icon">🎯</div>
           <h3>Objetivo</h3>
           <p>Difundir y preservar la gastronomía hidalguense entre estudiantes, familias y comunidad a través de experiencias sensoriales y educativas.</p>
         </div>
-        <div class="info-card reveal">
+        <div class="info-card" data-aos="fade-up" data-aos-delay="80">
           <div class="info-card-icon">🏛️</div>
           <h3>Importancia Cultural</h3>
           <p>Los platillos representan siglos de historia, técnica y cosmovisión de los pueblos originarios del Altiplano Hidalguense.</p>
         </div>
-        <div class="info-card reveal">
+        <div class="info-card" data-aos="fade-up" data-aos-delay="160">
           <div class="info-card-icon">🤝</div>
           <h3>Comunidad</h3>
           <p>Fortalece los lazos comunitarios, apoya a productores locales y posiciona a Hidalgo como destino de turismo gastronómico.</p>
         </div>
-        <div class="info-card reveal">
+        <div class="info-card" data-aos="fade-up" data-aos-delay="240">
           <div class="info-card-icon">📚</div>
           <h3>Estudiantes</h3>
           <p>Desarrolla competencias en investigación, emprendimiento, nutrición y valoración del patrimonio cultural intangible de México.</p>
@@ -82,23 +1030,18 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       PLATILLOS
-  ═══════════════════════════════════════════ -->
+  <!-- PLATILLOS -->
   <section class="section platillos" id="platillos">
     <div class="container">
-      <div class="section-header light">
-        <span class="section-label">Lo que presentamos</span>
+      <div class="section-header light" data-aos="fade-up">
+        <span class="section-eyebrow">Lo que presentamos</span>
         <h2>Platillos Tradicionales</h2>
         <p>Ocho recetas que condensan el alma de Hidalgo en cada bocado.</p>
       </div>
       <div class="cards-grid cards-flex">
-
         <!-- Panqué de Nopal -->
-        <div class="dish-card reveal" data-dish="panque">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🌵</div>
-          </div>
+        <div class="dish-card" data-dish="panque" data-aos="fade-up" data-aos-delay="0">
+          <div class="dish-card-img"><div class="dish-emoji">🌵</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Repostería</span>
             <h3>Panqué de Nopal</h3>
@@ -111,12 +1054,9 @@
             <button class="btn-recipe" data-dish="panque">Ver receta</button>
           </div>
         </div>
-
         <!-- Salsa de Xoconostle -->
-        <div class="dish-card reveal" data-dish="xoconostle">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🌶️</div>
-          </div>
+        <div class="dish-card" data-dish="xoconostle" data-aos="fade-up" data-aos-delay="80">
+          <div class="dish-card-img"><div class="dish-emoji">🌶️</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Salsas</span>
             <h3>Salsa de Xoconostle</h3>
@@ -129,12 +1069,9 @@
             <button class="btn-recipe" data-dish="xoconostle">Ver receta</button>
           </div>
         </div>
-
         <!-- Chilopani -->
-        <div class="dish-card reveal" data-dish="chilopani">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🦗</div>
-          </div>
+        <div class="dish-card" data-dish="chilopani" data-aos="fade-up" data-aos-delay="160">
+          <div class="dish-card-img"><div class="dish-emoji">🦗</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Entomofagia</span>
             <h3>Chilopani</h3>
@@ -147,12 +1084,9 @@
             <button class="btn-recipe" data-dish="chilopani">Ver receta</button>
           </div>
         </div>
-
         <!-- Buñuelos -->
-        <div class="dish-card reveal" data-dish="bunuelos">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🍯</div>
-          </div>
+        <div class="dish-card" data-dish="bunuelos" data-aos="fade-up" data-aos-delay="240">
+          <div class="dish-card-img"><div class="dish-emoji">🍯</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Dulces típicos</span>
             <h3>Buñuelos con Miel de Piloncillo</h3>
@@ -165,12 +1099,9 @@
             <button class="btn-recipe" data-dish="bunuelos">Ver receta</button>
           </div>
         </div>
-
         <!-- Codornices Nativas -->
-        <div class="dish-card reveal" data-dish="codornices">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🐦</div>
-          </div>
+        <div class="dish-card" data-dish="codornices" data-aos="fade-up" data-aos-delay="0">
+          <div class="dish-card-img"><div class="dish-emoji">🐦</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Carne</span>
             <h3>Codornices Nativas</h3>
@@ -183,12 +1114,9 @@
             <button class="btn-recipe" data-dish="codornices">Ver receta</button>
           </div>
         </div>
-
         <!-- Agua de Bugambilia -->
-        <div class="dish-card reveal" data-dish="bugambilia">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🌸</div>
-          </div>
+        <div class="dish-card" data-dish="bugambilia" data-aos="fade-up" data-aos-delay="80">
+          <div class="dish-card-img"><div class="dish-emoji">🌸</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Bebida</span>
             <h3>Agua de Bugambilia</h3>
@@ -201,12 +1129,9 @@
             <button class="btn-recipe" data-dish="bugambilia">Ver receta</button>
           </div>
         </div>
-
         <!-- Tortilla de Flor de Calabaza -->
-        <div class="dish-card reveal" data-dish="tortillas">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🌼</div>
-          </div>
+        <div class="dish-card" data-dish="tortillas" data-aos="fade-up" data-aos-delay="160">
+          <div class="dish-card-img"><div class="dish-emoji">🌼</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Básico</span>
             <h3>Tortilla de Flor de Calabaza</h3>
@@ -219,12 +1144,9 @@
             <button class="btn-recipe" data-dish="tortillas">Ver receta</button>
           </div>
         </div>
-
         <!-- Ceviche de Caracol -->
-        <div class="dish-card reveal" data-dish="caracol">
-          <div class="dish-card-img">
-            <div class="dish-emoji">🐚</div>
-          </div>
+        <div class="dish-card" data-dish="caracol" data-aos="fade-up" data-aos-delay="240">
+          <div class="dish-card-img"><div class="dish-emoji">🐚</div></div>
           <div class="dish-card-body">
             <span class="dish-tag">Mariscos</span>
             <h3>Ceviche de Caracol</h3>
@@ -237,82 +1159,69 @@
             <button class="btn-recipe" data-dish="caracol">Ver receta</button>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       INGREDIENTES
-  ═══════════════════════════════════════════ -->
+  <!-- INGREDIENTES -->
   <section class="section ingredientes" id="ingredientes">
     <div class="container">
-      <div class="section-header">
-        <span class="section-label">De nuestra tierra</span>
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-eyebrow">De nuestra tierra</span>
         <h2>Ingredientes Tradicionales</h2>
         <p>Los protagonistas silenciosos detrás de cada platillo hidalguense.</p>
       </div>
       <div class="ingredientes-grid">
-
-        <div class="ing-card reveal">
+        <div class="ing-card" data-aos="fade-up" data-aos-delay="0">
           <div class="ing-emoji">🌵</div>
           <h4>Nopal</h4>
           <p>Cactácea sagrada de México. Sus pencas y frutos son fuente de vitaminas, minerales y mucílagos que benefician el sistema digestivo.</p>
           <span class="ing-tag">Antidiabético · Fibra · Vit. C</span>
         </div>
-
-        <div class="ing-card reveal">
+        <div class="ing-card" data-aos="fade-up" data-aos-delay="60">
           <div class="ing-emoji">🍑</div>
           <h4>Xoconostle</h4>
           <p>Tuna ácida del nopal cardón. Su sabor agridulce aporta complejidad a salsas y guisos, además de propiedades antioxidantes únicas.</p>
           <span class="ing-tag">Vit. C · Antioxidante · Digestivo</span>
         </div>
-
-        <div class="ing-card reveal">
+        <div class="ing-card" data-aos="fade-up" data-aos-delay="120">
           <div class="ing-emoji">🦗</div>
           <h4>Chapulines</h4>
           <p>Insectos comestibles con hasta 70% de proteína. Alimento ancestral de México reconocido internacionalmente por su sostenibilidad.</p>
           <span class="ing-tag">Proteína · Hierro · Omega-3</span>
         </div>
-
-        <div class="ing-card reveal">
+        <div class="ing-card" data-aos="fade-up" data-aos-delay="180">
           <div class="ing-emoji">🐛</div>
           <h4>Chinicuiles</h4>
           <p>Larvas del agave rojo, ingrediente clave de la cocina del Mezquital. Se consumen asados, fritos o en salsas ceremoniales.</p>
           <span class="ing-tag">Proteína · Aminoácidos · Hierro</span>
         </div>
-
-        <div class="ing-card reveal">
+        <div class="ing-card" data-aos="fade-up" data-aos-delay="240">
           <div class="ing-emoji">🌿</div>
           <h4>Maguey</h4>
           <p>Planta símbolo de Hidalgo. Del maguey se obtiene el aguamiel, el pulque, las pencas para cocinar y las fibras para textiles.</p>
           <span class="ing-tag">Prebiótico · Minerales · Versátil</span>
         </div>
-
-        <div class="ing-card reveal">
+        <div class="ing-card" data-aos="fade-up" data-aos-delay="300">
           <div class="ing-emoji">🍯</div>
           <h4>Piloncillo</h4>
           <p>Azúcar morena sin refinar extraída de la caña. Aporta hierro, calcio y un sabor a melaza que define los dulces tradicionales de Hidalgo.</p>
           <span class="ing-tag">Hierro · Calcio · Energía</span>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       MAPA CULTURAL
-  ═══════════════════════════════════════════ -->
+  <!-- MAPA -->
   <section class="section mapa-section" id="mapa">
     <div class="container">
-      <div class="section-header light">
-        <span class="section-label">Geografía del sabor</span>
+      <div class="section-header light" data-aos="fade-up">
+        <span class="section-eyebrow">Geografía del sabor</span>
         <h2>Mapa Cultural de Hidalgo</h2>
         <p>Haz clic en los puntos del mapa para descubrir la riqueza de cada región.</p>
       </div>
       <div class="mapa-wrapper">
         <svg class="mapa-svg" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa cultural de Hidalgo">
-          <!-- Silueta simplificada de Hidalgo -->
           <defs>
             <radialGradient id="mapGrad" cx="50%" cy="50%">
               <stop offset="0%" stop-color="#2E7D3220"/>
@@ -320,34 +1229,26 @@
             </radialGradient>
           </defs>
           <path class="mapa-state" d="M80,60 L160,40 L240,55 L320,45 L420,80 L440,130 L430,200 L400,270 L360,320 L280,350 L200,360 L130,330 L80,280 L60,200 L50,130 Z" fill="url(#mapGrad)" stroke="#2E7D32" stroke-width="2"/>
-          <!-- Ríos decorativos -->
           <path d="M120,150 Q200,170 300,140 Q380,120 420,160" fill="none" stroke="#4CAF5040" stroke-width="1.5" stroke-dasharray="4,3"/>
-
-          <!-- Punto: Actopan -->
+          <!-- Puntos -->
           <g class="mapa-punto" data-info="actopan" tabindex="0" role="button" aria-label="Actopan">
             <circle cx="200" cy="160" r="14" fill="#2E7D32" opacity="0.9"/>
             <circle cx="200" cy="160" r="20" fill="#2E7D3230" class="pulse-ring"/>
             <text x="200" y="165" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🌵</text>
             <text x="200" y="185" text-anchor="middle" fill="#2E7D32" font-size="10" font-family="Poppins" font-weight="600">Actopan</text>
           </g>
-
-          <!-- Punto: El Arenal -->
           <g class="mapa-punto" data-info="arenal" tabindex="0" role="button" aria-label="El Arenal">
             <circle cx="310" cy="130" r="14" fill="#C62828" opacity="0.9"/>
             <circle cx="310" cy="130" r="20" fill="#C6282830" class="pulse-ring"/>
             <text x="310" y="135" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🌶️</text>
             <text x="310" y="155" text-anchor="middle" fill="#C62828" font-size="10" font-family="Poppins" font-weight="600">El Arenal</text>
           </g>
-
-          <!-- Punto: Mezquital -->
           <g class="mapa-punto" data-info="mezquital" tabindex="0" role="button" aria-label="Valle del Mezquital">
             <circle cx="150" cy="240" r="14" fill="#D4A017" opacity="0.9"/>
             <circle cx="150" cy="240" r="20" fill="#D4A01730" class="pulse-ring"/>
             <text x="150" y="245" text-anchor="middle" fill="white" font-size="10" font-family="Poppins">🐛</text>
             <text x="150" y="265" text-anchor="middle" fill="#D4A017" font-size="10" font-family="Poppins" font-weight="600">Mezquital</text>
           </g>
-
-          <!-- Punto: Pachuca -->
           <g class="mapa-punto" data-info="pachuca" tabindex="0" role="button" aria-label="Pachuca">
             <circle cx="300" cy="220" r="14" fill="#6D4C41" opacity="0.9"/>
             <circle cx="300" cy="220" r="20" fill="#6D4C4130" class="pulse-ring"/>
@@ -362,180 +1263,82 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       LÍNEA DEL TIEMPO
-  ═══════════════════════════════════════════ -->
+  <!-- TIMELINE -->
   <section class="section timeline-section" id="timeline">
     <div class="container">
-      <div class="section-header">
-        <span class="section-label">A través de los siglos</span>
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-eyebrow">A través de los siglos</span>
         <h2>Historia Gastronómica</h2>
         <p>Un recorrido por los momentos clave que dieron forma a la cocina tradicional de Hidalgo.</p>
       </div>
-
-      <!-- TIMELINE — estructura robusta, sin dependencia del CSS externo -->
-      <div style="position:relative; max-width:860px; margin:0 auto; padding:2rem 0;">
-
-        <!-- Línea central vertical -->
-        <div style="position:absolute; left:50%; top:0; bottom:0; width:2px;
-                    background:linear-gradient(to bottom,transparent,#D4A017 8%,#D4A017 92%,transparent);
-                    transform:translateX(-50%); pointer-events:none;"></div>
-
-        <!-- Item 1 — IZQUIERDA -->
-        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
-          <!-- Contenido izquierdo -->
-          <div style="flex:1; padding-right:3rem; text-align:right;">
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
-                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px; text-align:left;">
-              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
-                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
-                Época Prehispánica · Antes del 1521
-              </span>
-              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
-                         color:#fff; margin:0 0 .5rem;">Los primeros sabores</h4>
-              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
-                Los pueblos otomí y tolteca cultivaban nopal y maguey, y cosechaban chapulines
-                y chinicuiles como alimento sagrado. La cocina era ritual y medicinal.
-              </p>
-            </div>
+      <div class="timeline-wrapper">
+        <div class="timeline-line"></div>
+        <div class="tl-item left" data-aos="fade-right">
+          <div class="tl-content">
+            <span>Época Prehispánica · Antes del 1521</span>
+            <h4>Los primeros sabores</h4>
+            <p>Los pueblos otomí y tolteca cultivaban nopal y maguey, y cosechaban chapulines y chinicuiles como alimento sagrado. La cocina era ritual y medicinal.</p>
           </div>
-          <!-- Dot central -->
-          <div style="position:absolute; left:50%; transform:translateX(-50%);
-                      width:48px; height:48px; border-radius:50%;
-                      background:#0D0D0D; border:2.5px solid #D4A017;
-                      display:flex; align-items:center; justify-content:center;
-                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">🌽</div>
-          <!-- Espacio derecho vacío -->
-          <div style="flex:1; padding-left:3rem;"></div>
+          <div class="tl-dot">🌽</div>
+          <div class="tl-spacer"></div>
         </div>
-
-        <!-- Item 2 — DERECHA -->
-        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
-          <!-- Espacio izquierdo vacío -->
-          <div style="flex:1; padding-right:3rem;"></div>
-          <!-- Dot central -->
-          <div style="position:absolute; left:50%; transform:translateX(-50%);
-                      width:48px; height:48px; border-radius:50%;
-                      background:#0D0D0D; border:2.5px solid #D4A017;
-                      display:flex; align-items:center; justify-content:center;
-                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">⛪</div>
-          <!-- Contenido derecho -->
-          <div style="flex:1; padding-left:3rem;">
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
-                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px;">
-              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
-                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
-                Influencia Colonial · Siglos XVI–XVIII
-              </span>
-              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
-                         color:#fff; margin:0 0 .5rem;">Fusión de culturas</h4>
-              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
-                La llegada española introdujo el trigo, el piloncillo, la bugambilia y el aceite.
-                Los buñuelos y las tortillas de colores nacen de este encuentro culinario único.
-              </p>
-            </div>
+        <div class="tl-item right" data-aos="fade-left">
+          <div class="tl-spacer"></div>
+          <div class="tl-dot">⛪</div>
+          <div class="tl-content">
+            <span>Influencia Colonial · Siglos XVI–XVIII</span>
+            <h4>Fusión de culturas</h4>
+            <p>La llegada española introdujo el trigo, el piloncillo, la bugambilia y el aceite. Los buñuelos y las tortillas de colores nacen de este encuentro culinario único.</p>
           </div>
         </div>
-
-        <!-- Item 3 — IZQUIERDA -->
-        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
-          <div style="flex:1; padding-right:3rem; text-align:right;">
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
-                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px; text-align:left;">
-              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
-                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
-                Gastronomía Actual · Siglo XXI
-              </span>
-              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
-                         color:#fff; margin:0 0 .5rem;">Tradición con identidad</h4>
-              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
-                Chefs e investigadores rescatan las recetas ancestrales. En 2010, la UNESCO declara
-                la gastronomía mexicana Patrimonio Cultural Inmaterial de la Humanidad.
-              </p>
-            </div>
+        <div class="tl-item left" data-aos="fade-right">
+          <div class="tl-content">
+            <span>Gastronomía Actual · Siglo XXI</span>
+            <h4>Tradición con identidad</h4>
+            <p>Chefs e investigadores rescatan las recetas ancestrales. En 2010, la UNESCO declara la gastronomía mexicana Patrimonio Cultural Inmaterial de la Humanidad.</p>
           </div>
-          <div style="position:absolute; left:50%; transform:translateX(-50%);
-                      width:48px; height:48px; border-radius:50%;
-                      background:#0D0D0D; border:2.5px solid #D4A017;
-                      display:flex; align-items:center; justify-content:center;
-                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">🏆</div>
-          <div style="flex:1; padding-left:3rem;"></div>
+          <div class="tl-dot">🏆</div>
+          <div class="tl-spacer"></div>
         </div>
-
-        <!-- Item 4 — DERECHA -->
-        <div class="reveal" style="display:flex; align-items:flex-start; margin-bottom:3rem; position:relative;">
-          <div style="flex:1; padding-right:3rem;"></div>
-          <div style="position:absolute; left:50%; transform:translateX(-50%);
-                      width:48px; height:48px; border-radius:50%;
-                      background:#0D0D0D; border:2.5px solid #D4A017;
-                      display:flex; align-items:center; justify-content:center;
-                      font-size:1.4rem; box-shadow:0 0 20px rgba(212,160,23,.35); z-index:2;">🐦</div>
-          <div style="flex:1; padding-left:3rem;">
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(212,160,23,0.2);
-                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px;">
-              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
-                           text-transform:uppercase; color:#D4A017; margin-bottom:.4rem;">
-                Patrimonio Vivo · Siempre
-              </span>
-              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
-                         color:#fff; margin:0 0 .5rem;">Codornices &amp; Saberes Nativos</h4>
-              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
-                La codorniz (<em>zollin</em> en náhuatl) —ave sagrada teotihuacana— y la bugambilia
-                de origen sudamericano se fusionan con la identidad culinaria de Hidalgo.
-              </p>
-            </div>
+        <div class="tl-item right" data-aos="fade-left">
+          <div class="tl-spacer"></div>
+          <div class="tl-dot">🐦</div>
+          <div class="tl-content">
+            <span>Patrimonio Vivo · Siempre</span>
+            <h4>Codornices &amp; Saberes Nativos</h4>
+            <p>La codorniz (<em>zollin</em> en náhuatl) —ave sagrada teotihuacana— y la bugambilia de origen sudamericano se fusionan con la identidad culinaria de Hidalgo.</p>
           </div>
         </div>
-
-        <!-- Item 5 — IZQUIERDA (Feria Escolar) -->
-        <div class="reveal" style="display:flex; align-items:flex-start; position:relative;">
-          <div style="flex:1; padding-right:3rem; text-align:right;">
-            <div style="background:linear-gradient(135deg,rgba(46,125,50,.15),rgba(212,160,23,.08));
-                        border:1px solid rgba(46,125,50,.4);
-                        border-radius:16px; padding:1.5rem; display:inline-block; max-width:320px; text-align:left;">
-              <span style="display:block; font-size:0.68rem; font-weight:700; letter-spacing:.14em;
-                           text-transform:uppercase; color:#4CAF50; margin-bottom:.4rem;">
-                Feria Escolar · 2024–2025
-              </span>
-              <h4 style="font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800;
-                         color:#fff; margin:0 0 .5rem;">Verde Hidalgo Colores México</h4>
-              <p style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.7; margin:0;">
-                Estudiantes de Arenal investigan, preparan y presentan <strong>7 platillos</strong>
-                tradicionales, transmitiendo el conocimiento a las nuevas generaciones.
-              </p>
-            </div>
+        <div class="tl-item left" data-aos="fade-right">
+          <div class="tl-content" style="border-color:rgba(46,125,50,.4); background:linear-gradient(135deg,rgba(46,125,50,.15),rgba(212,160,23,.08));">
+            <span style="color:#4CAF50;">Feria Escolar · 2024–2025</span>
+            <h4>Verde Hidalgo Colores México</h4>
+            <p>Estudiantes de Arenal investigan, preparan y presentan <strong>7 platillos</strong> tradicionales, transmitiendo el conocimiento a las nuevas generaciones.</p>
           </div>
-          <div style="position:absolute; left:50%; transform:translateX(-50%);
-                      width:56px; height:56px; border-radius:50%;
-                      background:linear-gradient(135deg,#2E7D32,#4CAF50);
-                      display:flex; align-items:center; justify-content:center;
-                      font-size:1.6rem; box-shadow:0 0 28px rgba(46,125,50,.5); z-index:2;">🏫</div>
-          <div style="flex:1; padding-left:3rem;"></div>
+          <div class="tl-dot special">🏫</div>
+          <div class="tl-spacer"></div>
         </div>
-
-      </div><!-- /timeline wrapper -->
+      </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       ESTADÍSTICAS
-  ═══════════════════════════════════════════ -->
+  <!-- STATS -->
   <section class="section stats-section" id="stats">
     <div class="container">
       <div class="stats-grid">
-        <div class="stat-item reveal">
+        <div class="stat-item" data-aos="fade-up">
           <span class="stat-number" data-target="8">0</span>
           <span class="stat-label">Platillos Tradicionales</span>
         </div>
-        <div class="stat-item reveal">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="80">
           <span class="stat-number" data-target="6">0</span>
           <span class="stat-label">Ingredientes Regionales</span>
         </div>
-        <div class="stat-item reveal">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="160">
           <span class="stat-number" data-target="1000" data-suffix="+">0</span>
           <span class="stat-label">Años de Tradición</span>
         </div>
-        <div class="stat-item reveal">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="240">
           <div class="stat-badge">UNESCO</div>
           <span class="stat-label">Patrimonio Cultural Inmaterial</span>
         </div>
@@ -543,13 +1346,11 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       GALERÍA
-  ═══════════════════════════════════════════ -->
+  <!-- GALERÍA (SIN DUPLICADOS) -->
   <section class="section galeria-section" id="galeria">
     <div class="container">
-      <div class="section-header">
-        <span class="section-label">Imágenes del proyecto</span>
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-eyebrow">Imágenes del proyecto</span>
         <h2>Galería</h2>
         <p>Momentos de preparación, ingredientes y convivencia comunitaria.</p>
       </div>
@@ -559,83 +1360,65 @@
         <button class="filter-btn" data-filter="preparacion">Preparación</button>
         <button class="filter-btn" data-filter="feria">Feria</button>
       </div>
-
-      <div class="galeria-masonry" id="galeria">
-      <div class="gal-item reveal" data-cat="ingredientes">
-    <img src="img/ingredientes.jpg" alt="ingredientes" class="gal-img">
-    <span>Ingredientes</span></div>
-     <div class="gal-item reveal" data-cat="ingredientes">
-    <img src="img/ingredientes2.jpg" alt="ingredientes" class="gal-img">
-    <span>Ingredientes ceviche de caracol</span></div>
-    <div class="gal-item gal-tall reveal" data-cat="preparacion">
-    <img src="img/preparacion.jpg" alt="Preparando" class="gal-img">
-    <span>Preparando</span></div>
-    <div class="gal-item gal-tall reveal" data-cat="preparacion">
-    <img src="img/preparacion2.jpg" alt="Preparando" class="gal-img">
-    <span>Preparando</span></div>
-    <div class="gal-item gal-tall reveal" data-cat="preparacion">
-    <img src="img/preparacion3.jpg" alt="Preparando" class="gal-img">
-    <span>Preparando</span></div>
-    <div class="gal-item reveal" data-cat="ingredientes">
-    <img src="img/Xoconostle.jpeg" alt="Xoconostle" class="gal-img">
-    <span>Xoconostle</span></div>
-    <div class="gal-item gal-tall reveal" data-cat="preparacion">
-    <img src="img/Salsa de Xoconostle.jpeg" alt="Preparando" class="gal-img">
-    <span>Preparando salsa de Xoconostle </span></div>
-      <div class="gal-item gal-tall reveal" data-cat="preparacion">
-    <img src="img/preparacion6.jpg" alt="Preparando" class="gal-img">
-    <span>Preparando ceviche de caracol </span></div>
-
-
-
-
-    <div class="galeria-masonry" id="galeria">
-        <div class="gal-item reveal" data-cat="ingredientes" data-img=".jpg"><div class="gal-emoji">🌵</div><span>Nopal fresco</span></div>
-        <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🌵</div><span>Nopal fresco</span></div>
-        <div class="gal-item gal-tall reveal" data-cat="preparacion"><div class="gal-emoji">👩‍🍳</div><span>Preparando el panqué</span></div>
-        <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🍑</div><span>Xoconostle</span></div>
-        <div class="gal-item reveal" data-cat="feria"><div class="gal-emoji">🏮</div><span>Puesto en la feria</span></div>
-        <div class="gal-item gal-wide reveal" data-cat="feria"><div class="gal-emoji">🎉</div><span>Comunidad en la feria</span></div>
-        <div class="gal-item reveal" data-cat="preparacion"><div class="gal-emoji">🍯</div><span>Piloncillo fundido</span></div>
-        <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🐛</div><span>Chinicuiles</span></div>
-        <div class="gal-item gal-tall reveal" data-cat="preparacion"><div class="gal-emoji">🌶️</div><span>Salsa de xoconostle</span></div>
-        <div class="gal-item reveal" data-cat="feria"><div class="gal-emoji">📸</div><span>Estudiantes presentando</span></div>
+      <div class="galeria-masonry">
+        <div class="gal-item" data-cat="ingredientes" data-aos="fade-up">
+          <img src="img/ingredientes.jpg" alt="ingredientes" class="gal-img"><span>Ingredientes</span>
+        </div>
+        <div class="gal-item" data-cat="ingredientes" data-aos="fade-up">
+          <img src="img/ingredientes2.jpg" alt="ingredientes" class="gal-img"><span>Ingredientes ceviche de caracol</span>
+        </div>
+        <div class="gal-item gal-tall" data-cat="preparacion" data-aos="fade-up">
+          <img src="img/preparacion.jpg" alt="Preparando" class="gal-img"><span>Preparando</span>
+        </div>
+        <div class="gal-item gal-tall" data-cat="preparacion" data-aos="fade-up">
+          <img src="img/preparacion2.jpg" alt="Preparando" class="gal-img"><span>Preparando</span>
+        </div>
+        <div class="gal-item gal-tall" data-cat="preparacion" data-aos="fade-up">
+          <img src="img/preparacion3.jpg" alt="Preparando" class="gal-img"><span>Preparando</span>
+        </div>
+        <div class="gal-item" data-cat="ingredientes" data-aos="fade-up">
+          <img src="img/Xoconostle.jpeg" alt="Xoconostle" class="gal-img"><span>Xoconostle</span>
+        </div>
+        <div class="gal-item gal-tall" data-cat="preparacion" data-aos="fade-up">
+          <img src="img/Salsa de Xoconostle.jpeg" alt="Preparando" class="gal-img"><span>Preparando salsa de Xoconostle</span>
+        </div>
+        <div class="gal-item gal-tall" data-cat="preparacion" data-aos="fade-up">
+          <img src="img/preparacion6.jpg" alt="Preparando" class="gal-img"><span>Preparando ceviche de caracol</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       HIGIENE Y SEGURIDAD
-  ═══════════════════════════════════════════ -->
+  <!-- HIGIENE -->
   <section class="section higiene-section" id="higiene">
     <div class="container">
-      <div class="section-header light">
-        <span class="section-label">Buenas prácticas</span>
+      <div class="section-header light" data-aos="fade-up">
+        <span class="section-eyebrow">Buenas prácticas</span>
         <h2>Medidas de Higiene y Seguridad</h2>
         <p>La seguridad alimentaria es tan importante como la tradición.</p>
       </div>
       <div class="higiene-grid">
-        <div class="higiene-card reveal">
+        <div class="higiene-card" data-aos="fade-up" data-aos-delay="0">
           <div class="higiene-icon">🙌</div>
           <h4>Lavado de Manos</h4>
           <p>Antes y después de manipular alimentos con agua y jabón durante al menos 20 segundos.</p>
         </div>
-        <div class="higiene-card reveal">
+        <div class="higiene-card" data-aos="fade-up" data-aos-delay="80">
           <div class="higiene-icon">👒</div>
           <h4>Uso de Cofia</h4>
           <p>Todo el equipo gastronómico usa cofia o gorro para evitar la contaminación del cabello en los alimentos.</p>
         </div>
-        <div class="higiene-card reveal">
+        <div class="higiene-card" data-aos="fade-up" data-aos-delay="160">
           <div class="higiene-icon">😷</div>
           <h4>Cubrebocas</h4>
           <p>Obligatorio durante la preparación para garantizar la higiene respiratoria en la manipulación de alimentos.</p>
         </div>
-        <div class="higiene-card reveal">
+        <div class="higiene-card" data-aos="fade-up" data-aos-delay="240">
           <div class="higiene-icon">🥦</div>
           <h4>Desinfección</h4>
           <p>Todos los vegetales e ingredientes se lavan y desinfectan con solución de cloro o yodo antes de su uso.</p>
         </div>
-        <div class="higiene-card reveal">
+        <div class="higiene-card" data-aos="fade-up" data-aos-delay="320">
           <div class="higiene-icon">🔪</div>
           <h4>Utensilios Seguros</h4>
           <p>Uso exclusivo de utensilios limpios y esterilizados. Tablas de colores por tipo de alimento.</p>
@@ -644,59 +1427,74 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       EQUIPO
-  ═══════════════════════════════════════════ -->
+  <!-- EQUIPO – CON LOS NOMBRES CORRECTOS -->
   <section class="section equipo-section" id="equipo">
     <div class="container">
-      <div class="section-header">
-        <span class="section-label">Las personas detrás del proyecto</span>
-        <h2>Equipo Verde Hidalgo</h2>
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-eyebrow">Nuestro equipo</span>
+        <h2>Los artífices del proyecto</h2>
+        <div class="divider"></div>
       </div>
       <div class="equipo-grid">
-        <div class="equipo-card reveal">
-          <div class="equipo-avatar">👩‍🍳</div>
-          <h4>Área Gastronómica</h4>
-          <p>Responsables de la investigación, preparación y presentación de los platillos tradicionales de Hidalgo.</p>
-          <span class="equipo-tag">Cocina · Recetas · Degustación</span>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>Stefani Sara Mendoza Hernández</h3>
+          <p class="role">Integrante</p>
         </div>
-        <div class="equipo-card reveal">
-          <div class="equipo-avatar">📦</div>
-          <h4>Abastecimiento</h4>
-          <p>Encargados de conseguir ingredientes frescos y de temporada, priorizando productores locales del estado.</p>
-          <span class="equipo-tag">Compras · Logística · Proveedores</span>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>María Yaquelin Mendoza Escamilla</h3>
+          <p class="role">Integrante</p>
         </div>
-        <div class="equipo-card reveal">
-          <div class="equipo-avatar">🎤</div>
-          <h4>Presentadores</h4>
-          <p>El equipo de difusión comunica la historia y beneficios de cada platillo al público asistente a la feria.</p>
-          <span class="equipo-tag">Comunicación · Educación · Cultura</span>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>Saira Sajari Azul Pagola López</h3>
+          <p class="role">Integrante</p>
         </div>
-        <div class="equipo-card reveal equipo-docente">
-          <div class="equipo-avatar">👩‍🏫</div>
-          <h4>Asesoría Docente</h4>
-          <p class="docente-nombre">Profra. Adriana García Pérez</p>
-          <p>Guía y asesora el desarrollo del proyecto garantizando su rigor académico y su impacto educativo.</p>
-          <span class="equipo-tag">Asesoría · Pedagogía · Investigación</span>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>Carlos Hernández López</h3>
+          <p class="role">Integrante</p>
+        </div>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>Yoshua Olguín García</h3>
+          <p class="role">Integrante</p>
+        </div>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>Jesús Barrera García</h3>
+          <p class="role">Integrante</p>
+        </div>
+        <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="team-avatar"><i class="fa fa-user"></i></div>
+          <h3>Alexis López Sauz</h3>
+          <p class="role">Integrante</p>
+        </div>
+      </div>
+      <!-- Docente -->
+      <div style="max-width:320px;margin:3.2rem auto 0" data-aos="fade-up">
+        <div class="team-card teacher-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,var(--green-mid),var(--brown))">
+            <i class="fa fa-chalkboard-user"></i>
+          </div>
+          <h3>Adriana García Pérez</h3>
+          <p class="role" style="color:var(--gold)">Docente guía</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       PRESUPUESTO
-  ═══════════════════════════════════════════ -->
+  <!-- PRESUPUESTO -->
   <section class="section presupuesto-section" id="presupuesto">
     <div class="container container-sm">
-      <div class="section-header light">
-        <span class="section-label">Transparencia financiera</span>
+      <div class="section-header light" data-aos="fade-up">
+        <span class="section-eyebrow">Transparencia financiera</span>
         <h2>Presupuesto del Proyecto</h2>
       </div>
-      <div class="presupuesto-card reveal">
+      <div class="presupuesto-card" data-aos="fade-up">
         <table class="presupuesto-table">
-          <thead>
-            <tr><th>Concepto</th><th>Costo</th></tr>
-          </thead>
+          <thead><tr><th>Concepto</th><th>Costo</th></tr></thead>
           <tbody>
             <tr><td><span class="pres-dot green"></span> Salsa de Xoconostle</td><td>$150 MXN</td></tr>
             <tr><td><span class="pres-dot yellow"></span> Chilopani</td><td>$160 MXN</td></tr>
@@ -706,17 +1504,13 @@
             <tr><td><span class="pres-dot gray2"></span> Papelería</td><td>$60 MXN</td></tr>
             <tr><td><span class="pres-dot brown"></span> Transporte y Gas</td><td>$80 MXN</td></tr>
           </tbody>
-          <tfoot>
-            <tr><td><strong>Total</strong></td><td><strong>$790 MXN</strong></td></tr>
-          </tfoot>
+          <tfoot><tr><td><strong>Total</strong></td><td><strong>$790 MXN</strong></td></tr></tfoot>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════ -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -739,7 +1533,6 @@
           <div class="social-icons">
             <a href="https://www.instagram.com/sara._.mendozza" class="social-btn" aria-label="Instagram">📷 Instagram</a>
             <a href="https://www.facebook.com/share/1CcQQYg2kZ/" class="social-btn" aria-label="Facebook">📘 Facebook Tbc San José  (Telebachillerato San José Tepenené)</a>
-         
           </div>
         </div>
       </div>
@@ -749,9 +1542,7 @@
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════════════════
-       MODAL DE RECETAS
-  ═══════════════════════════════════════════ -->
+  <!-- MODAL DE RECETAS (AMPLIADO) -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-box">
       <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
@@ -759,48 +1550,105 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       LIGHTBOX
-  ═══════════════════════════════════════════ -->
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose">&times;</button>
     <div class="lightbox-content" id="lightboxContent"></div>
   </div>
 
-  <!-- ═══ Estilos extra: grid flexible + timeline mobile ═══ -->
-  <style>
-    /* Grid 4 → flexible para 8 tarjetas */
-    .cards-flex {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .dish-card[data-dish="caracol"] { border-bottom: 3px solid #01B2D4; }
-
-    /* Timeline: colapso en mobile */
-    @media (max-width: 680px) {
-      [style*="display:flex"][style*="position:relative"] {
-        flex-direction: column !important;
-        padding-left: 4rem !important;
-      }
-      [style*="display:flex"][style*="position:relative"] > div:first-child,
-      [style*="display:flex"][style*="position:relative"] > div:last-child {
-        padding-right: 0 !important;
-        padding-left: 0 !important;
-        text-align: left !important;
-      }
-      [style*="position:absolute"][style*="left:50%"] {
-        left: 0 !important;
-        transform: none !important;
-      }
-    }
-  </style>
-
-  <!-- ═══ Datos adicionales de recetas ═══ -->
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
-    /* Estas recetas se inyectan ANTES de que script.js registre sus handlers,
-       de modo que window.RECIPES queda disponible cuando script.js lo lea.
-       Si script.js no usa window.RECIPES, el modal se construye abajo. */
+    /* ============================================================
+       RECETAS BASE
+       ============================================================ */
+    window.RECIPES = {
+      panque: {
+        emoji: '🌵',
+        title: 'Panqué de Nopal',
+        tag: 'Repostería · Tradicional',
+        historia: 'El nopal ha sido alimento sagrado de los pueblos mesoamericanos desde hace más de 9,000 años. Incorporarlo a la repostería es un ejemplo de cómo la cocina hidalguense fusiona técnicas modernas con ingredientes ancestrales, creando un postre nutritivo y lleno de identidad regional.',
+        ingredientes: [
+          '2 tazas de harina de trigo','3 huevos','1 taza de pulpa de nopal cocida y licuada',
+          '½ taza de aceite vegetal','1 taza de azúcar','1 cdita. de polvo para hornear',
+          '½ cdita. de bicarbonato','1 pizca de sal','1 cdita. de vainilla'
+        ],
+        pasos: [
+          'Limpiar los nopales, retirar espinas y cortar en trozos. Cocer en agua con sal 10 min.',
+          'Escurrir, enjuagar con agua fría para eliminar baba y licuar hasta obtener pulpa lisa.',
+          'Batir huevos con azúcar hasta mezcla pálida y espumosa. Añadir aceite y vainilla.',
+          'Incorporar la pulpa de nopal a la mezcla húmeda.',
+          'Cernir harina, polvo para hornear, bicarbonato y sal. Integrar a la mezcla con movimientos envolventes.',
+          'Verter en molde engrasado y enharinado. Hornear a 180 °C durante 35–40 min.',
+          'Dejar enfriar 10 min en el molde antes de desmoldar.'
+        ],
+        curiosidad: 'El nopal (<em>Opuntia</em>) aparece en el escudo nacional de México. Su mucílago ayuda a reducir los niveles de azúcar en sangre, convirtiéndolo en un ingrediente funcional con respaldo científico moderno.',
+        beneficios: ['🟢 Alto en fibra','🌵 Vitaminas C y B','💧 Hidratante natural','🩸 Regula glucosa']
+      },
+      xoconostle: {
+        emoji: '🌶️',
+        title: 'Salsa de Xoconostle',
+        tag: 'Salsas · Tradicional',
+        historia: 'El xoconostle —tuna ácida del nopal cardón— es ingrediente insustituible de la cocina del Valle del Mezquital. Utilizado desde la época prehispánica, aporta un sabor agridulce único que potencia moles, guisos y caldos. Su nombre proviene del náhuatl <em>xocotl</em> (fruta ácida) + <em>nochtli</em> (tuna).',
+        ingredientes: [
+          '6 xoconostles maduros','3 chiles de árbol secos','1 diente de ajo',
+          '¼ de cebolla blanca','Sal al gusto','Agua la necesaria'
+        ],
+        pasos: [
+          'Pelar los xoconostles, retirar semillas y reservar. La cáscara se puede usar también en moles.',
+          'Tostar ligeramente los chiles de árbol en comal sin que se quemen.',
+          'Cocer los xoconostles en agua hasta que estén suaves, aprox. 8 minutos.',
+          'Licuar xoconostles cocidos, chiles, ajo y cebolla con un poco de agua de cocción.',
+          'Colar si deseas textura más fina. Sazonar con sal y calentar en sartén con un chorrito de aceite hasta sazonar.'
+        ],
+        curiosidad: 'El xoconostle se usa en el emblemático mole de olla hidalguense y en el caldo tlalpeño. Es rico en pectina, lo que lo hace ideal como espesante natural y le da un sabor complejo que equilibra perfecto con carnes asadas.',
+        beneficios: ['🔴 Vitamina C','🌿 Antioxidante','🫁 Digestiva','⚡ Bajo en calorías']
+      },
+      chilopani: {
+        emoji: '🦗',
+        title: 'Chilopani',
+        tag: 'Entomofagia · Bebida ceremonial',
+        historia: 'El chilopani es una bebida ancestral del Valle del Mezquital, territorio hñahñú (otomí). Elaborada con agua de tuna fermentada levemente y chinicuiles —larvas del maguey rojo—, fue utilizada en ceremonias agrícolas y rituales de fertilidad. Representa la profunda conexión de los pueblos originarios con el maguey y los insectos comestibles.',
+        ingredientes: [
+          '1 kg de tunas rojas o xoconostles','100 g de chinicuiles limpios y asados',
+          '2 litros de agua','Sal y chile piquín al gusto','Jugo de limón (opcional)'
+        ],
+        pasos: [
+          'Lavar bien las tunas. Retirar cáscaras y licuar la pulpa con 1 litro de agua. Colar.',
+          'Tostar los chinicuiles en comal seco hasta que estén crujientes y aromáticos.',
+          'Moler los chinicuiles tostados en molcajete junto con sal y chile piquín.',
+          'Mezclar el agua de tuna con el resto del agua. Añadir la pasta de chinicuiles.',
+          'Revolver bien. Servir frío con hielo y jugo de limón al gusto.'
+        ],
+        curiosidad: 'México es el país con mayor diversidad de insectos comestibles del mundo: más de 500 especies. Los chinicuiles (<em>Comadia redtenbacheri</em>) son larvas del agave rojo y contienen hasta 65% de proteína, superando a la carne de res en contenido proteico por gramo.',
+        beneficios: ['🟡 Proteína completa','🦗 Aminoácidos esenciales','♻️ Producción sostenible','🩸 Rico en hierro']
+      },
+      bunuelos: {
+        emoji: '🍯',
+        title: 'Buñuelos con Miel de Piloncillo',
+        tag: 'Dulces típicos · Colonial',
+        historia: 'Los buñuelos llegaron a México con los conquistadores españoles en el siglo XVI y se fusionaron con ingredientes locales como el piloncillo. Se convirtieron en un símbolo de ferias patronales y Navidad. En Hidalgo tienen la tradición de comerlos y lanzar el plato de barro: si se rompe, trae buena suerte.',
+        ingredientes: [
+          '2 tazas de harina de trigo','1 huevo','½ taza de leche tibia','2 cdas. de mantequilla',
+          '1 pizca de sal','½ cdita. de polvo para hornear','250 g de piloncillo','1 raja de canela',
+          '3 clavos de olor','2 tazas de agua (para el jarabe)','Aceite para freír'
+        ],
+        pasos: [
+          'Mezclar harina, polvo para hornear y sal. Hacer un pozo y añadir huevo, mantequilla y leche. Amasar 8 minutos hasta obtener masa suave.',
+          'Dividir en bolitas de 4 cm. Dejar reposar 15 minutos tapadas.',
+          'Estirar cada bolita muy delgada con rodillo hasta casi transparente.',
+          'Freír en aceite caliente (180 °C) hasta dorado claro, aprox. 1–2 min por lado. Escurrir.',
+          'Para el jarabe: hervir agua con piloncillo, canela y clavos hasta que espese ligeramente, 15–20 min.',
+          'Bañar los buñuelos con el jarabe caliente justo antes de servir.'
+        ],
+        curiosidad: 'El piloncillo es azúcar de caña sin refinar que conserva minerales como hierro, calcio y potasio que el azúcar blanca pierde en el proceso de refinado. Su sabor a melaza y caramelo es inconfundible en la cocina mexicana de fiesta.',
+        beneficios: ['🟠 Energía inmediata','🍯 Hierro natural del piloncillo','🎉 Sin conservadores','🌾 Ingredientes simples']
+      }
+    };
+
+    /* ============================================================
+       RECETAS EXTRA (codornices, bugambilia, tortillas, caracol)
+       ============================================================ */
     window.EXTRA_RECIPES = {
       codornices: {
         emoji: '🐦',
@@ -808,41 +1656,31 @@
         tag: 'Carne · Prehispánico',
         historia: 'Las codornices habitan México desde tiempos prehispánicos y fueron conocidas en náhuatl como <em>zollin</em>. Eran aves sagradas protagonistas de mitos solares y aparecen en la cerámica teotihuacana y en diversos códices. La emblemática Codorniz de Moctezuma (<em>Cyrtonyx montezumae</em>) se adaptó a los climas semiáridos y bosques de pino-encino del Altiplano.',
         ingredientes: [
-          '2 codornices limpias y sin vísceras',
-          'Sal y pimienta negra al gusto',
-          '1 cdita. de mostaza Dijon (opcional)',
-          '2 cdas. de aceite de oliva',
-          '4 chiles guajillo secos',
-          '2 chiles anchos secos',
-          '1 diente de ajo grande',
-          '¼ de cebolla blanca',
-          '½ cdita. de comino en polvo',
-          '½ taza de agua o caldo de pollo',
-          'Sal al gusto para el adobo',
+          '2 codornices limpias y sin vísceras','Sal y pimienta negra al gusto',
+          '1 cdita. de mostaza Dijon (opcional)','2 cdas. de aceite de oliva',
+          '4 chiles guajillo secos','2 chiles anchos secos','1 diente de ajo grande',
+          '¼ de cebolla blanca','½ cdita. de comino en polvo','½ taza de agua o caldo de pollo',
+          'Sal al gusto para el adobo'
         ],
         pasos: [
           'Limpia los chiles retirando semillas y venas. Ásalos en comal unos segundos, luego remójalos en agua hirviendo 15 minutos.',
           'Escurre los chiles y licúa con cebolla, ajo, comino, agua y sal hasta obtener salsa tersa. Cuela si deseas textura fina.',
           'Seca las codornices con papel absorbente. Úntales aceite, mostaza, sal y pimienta.',
           'Dora las codornices en sartén u olla con un chorrito de aceite, aprox. 3–4 min por lado.',
-          'Vierte el adobo sobre las codornices doradas. Tapa y cocina a fuego lento 10–15 min. Rectifica la sal.',
+          'Vierte el adobo sobre las codornices doradas. Tapa y cocina a fuego lento 10–15 min. Rectifica la sal.'
         ],
         curiosidad: 'La codorniz fue tan importante para los aztecas que aparece como ofrenda en el Códice Borgia. Hoy la Codorniz Moctezuma es una especie emblemática de México y símbolo de la biodiversidad del Altiplano.',
-        beneficios: ['💪 Alta proteína magra', '🔩 Rica en hierro', '🧠 Vitaminas del grupo B', '🌿 Baja en grasa'],
+        beneficios: ['💪 Alta proteína magra','🔩 Rica en hierro','🧠 Vitaminas del grupo B','🌿 Baja en grasa']
       },
-
       bugambilia: {
         emoji: '🌸',
         title: 'Agua de Bugambilia',
         tag: 'Bebida · Tradicional',
         historia: 'La bugambilia llegó a México desde Sudamérica durante la época colonial y fue adoptada por la medicina tradicional por sus propiedades antiinflamatorias y expectorantes. Con el tiempo, la infusión de sus flores se convirtió en una bebida fresca y colorida, representativa de muchas regiones del país.',
         ingredientes: [
-          '20 a 30 flores de bugambilia (morada o rosa intenso)',
-          'Jugo de 6 a 8 limones',
-          '2 a 3 litros de agua',
-          'Miel o endulzante al gusto',
-          'Hielos al gusto',
-          'Hojas de menta o hierbabuena (opcional, para decorar)',
+          '20 a 30 flores de bugambilia (morada o rosa intenso)','Jugo de 6 a 8 limones',
+          '2 a 3 litros de agua','Miel o endulzante al gusto','Hielos al gusto',
+          'Hojas de menta o hierbabuena (opcional, para decorar)'
         ],
         pasos: [
           'Lava muy bien las flores y retira la parte blanca o amarilla del centro.',
@@ -850,23 +1688,19 @@
           'Retira del fuego y deja reposar 10 minutos.',
           'Cuela el líquido para retirar las flores.',
           'En una jarra mezcla el extracto con el resto del agua. Agrega endulzante y jugo de limón.',
-          'Añade hielo y sirve fría. Decora con hojas de menta si deseas.',
+          'Añade hielo y sirve fría. Decora con hojas de menta si deseas.'
         ],
         curiosidad: 'La bugambilia (<em>Bougainvillea</em>) fue nombrada así en honor al navegante francés Louis Antoine de Bougainville, quien la llevó a Europa en el siglo XVIII. En México es símbolo de alegría y aparece en casi todos los jardines y fachadas del país.',
-        beneficios: ['🌸 Antiinflamatoria', '🍋 Vitamina C del limón', '💧 Hidratante', '🧘 Propiedades calmantes'],
+        beneficios: ['🌸 Antiinflamatoria','🍋 Vitamina C del limón','💧 Hidratante','🧘 Propiedades calmantes']
       },
-
       tortillas: {
         emoji: '🌼',
         title: 'Tortilla de Flor de Calabaza',
         tag: 'Básico · Prehispánico',
         historia: 'La tortilla de flor de calabaza es un platillo tradicional de México que tiene sus raíces en la época prehispánica. Los pueblos indígenas cultivaban la calabaza y aprovechaban todas sus partes, incluyendo la flor, por su sabor y valor nutritivo. Desde tiempos antiguos, la flor de calabaza formó parte de la alimentación de diversas culturas mesoamericanas. Con la llegada de los españoles, se incorporaron nuevos ingredientes y técnicas de cocina, pero la flor de calabaza siguió siendo un alimento importante. Actualmente, se utiliza en quesadillas, sopas, guisos y tortillas.',
         ingredientes: [
-          '8 flores de calabaza limpias',
-          '4 huevos',
-          '1 cucharada de aceite',
-          'Sal al gusto',
-          'Pimienta al gusto (opcional)',
+          '8 flores de calabaza limpias','4 huevos','1 cucharada de aceite',
+          'Sal al gusto','Pimienta al gusto (opcional)'
         ],
         pasos: [
           'Lava y limpia las flores de calabaza, retirando el pistilo del centro.',
@@ -877,27 +1711,21 @@
           'Vierte la mezcla y cocina a fuego medio.',
           'Cuando la parte inferior esté dorada, voltea la tortilla con cuidado.',
           'Cocina por el otro lado hasta que quede bien cocida.',
-          'Sirve caliente.',
+          'Sirve caliente.'
         ],
         curiosidad: 'La calabaza, junto con el maíz y el frijol, forma parte de "las tres hermanas", la base agrícola de Mesoamérica. Los pueblos prehispánicos no desperdiciaban nada de esta planta: comían la pulpa, las semillas, las guías e incluso la flor, como en esta receta.',
-        beneficios: ['🌼 Rica en antioxidantes', '🥚 Proteína del huevo', '💪 Bajo en calorías', '🌿 Sin conservadores'],
+        beneficios: ['🌼 Rica en antioxidantes','🥚 Proteína del huevo','💪 Bajo en calorías','🌿 Sin conservadores']
       },
-
       caracol: {
         emoji: '🐚',
         title: 'Ceviche de Caracol',
         tag: 'Mariscos · Costa de América Latina',
         historia: 'El ceviche de caracol surgió en las costas de América Latina y el Caribe, donde los habitantes aprovechaban el caracol marino como alimento. La receta evolucionó con el uso de cítricos introducidos por los españoles durante la colonia y se convirtió en un platillo típico de las regiones costeras. Su técnica de "cocción en frío" con jugo de limón es una de las más antiguas del continente americano.',
         ingredientes: [
-          '500 g de caracol limpio y picado',
-          '1 taza de jugo de limón',
-          '1 tomate picado en cubos',
-          '½ cebolla morada o blanca picada finamente',
-          '1 chile serrano o jalapeño picado (opcional)',
-          'Cilantro fresco picado al gusto',
-          'Sal al gusto',
-          'Pimienta al gusto',
-          'Galletas saladas o tostadas para acompañar',
+          '500 g de caracol limpio y picado','1 taza de jugo de limón','1 tomate picado en cubos',
+          '½ cebolla morada o blanca picada finamente','1 chile serrano o jalapeño picado (opcional)',
+          'Cilantro fresco picado al gusto','Sal al gusto','Pimienta al gusto',
+          'Galletas saladas o tostadas para acompañar'
         ],
         pasos: [
           'Lava y limpia bien el caracol.',
@@ -908,87 +1736,295 @@
           'Añade el tomate, la cebolla, el chile y el cilantro finamente picados.',
           'Sazona con sal y pimienta al gusto.',
           'Mezcla bien todos los ingredientes.',
-          'Sirve frío y acompaña con tostadas, galletas saladas o aguacate.',
+          'Sirve frío y acompaña con tostadas, galletas saladas o aguacate.'
         ],
         curiosidad: 'El caracol marino es uno de los moluscos más consumidos en las costas de México y el Caribe. Aporta zinc, hierro y yodo en cantidades importantes, y su concha ha sido utilizada desde tiempos prehispánicos como instrumento musical, adorno ceremonial y trueque comercial.',
-        beneficios: ['🔵 Alto en proteína magra', '🦪 Rico en zinc y yodo', '🍋 Vitamina C del limón', '💧 Bajo en grasa'],
-      },
+        beneficios: ['🔵 Alto en proteína magra','🦪 Rico en zinc y yodo','🍋 Vitamina C del limón','💧 Bajo en grasa']
+      }
     };
 
-    /* Parche para inyectar datos extra en el sistema de modales de script.js.
-       Se ejecuta DESPUÉS de que script.js cargue (DOMContentLoaded ya pasó). */
-    document.addEventListener('DOMContentLoaded', function () {
-      // Esperar a que script.js haya definido RECIPES (si lo hace)
-      setTimeout(injectExtraRecipes, 100);
-    });
+    /* ============================================================
+       DATOS DEL MAPA
+       ============================================================ */
+    const MAPA_INFO = {
+      actopan: {
+        nombre: 'Actopan',
+        region: 'Valle del Mezquital · Centro-Norte',
+        descripcion: 'Capital gastronómica del Valle del Mezquital. Conocida por el ximbó —barbacoa de maguey— y el nopal en todas sus formas. Ciudad donde nació este proyecto escolar.',
+        platillos: ['Panqué de Nopal', 'Barbacoa en Ximbó', 'Sopa de Médula']
+      },
+      arenal: {
+        nombre: 'El Arenal',
+        region: 'Valle del Mezquital · Norte',
+        descripcion: 'Municipio famoso por su producción artesanal de xoconostle y tunas silvestres. Aquí la salsa de xoconostle acompaña cada comida y se vende en mercados regionales.',
+        platillos: ['Salsa de Xoconostle', 'Carnitas de Xoconostle', 'Agua de Tuna']
+      },
+      mezquital: {
+        nombre: 'Valle del Mezquital',
+        region: 'Territorio Hñahñú · Centro',
+        descripcion: 'Territorio sagrado del pueblo otomí-hñahñú. Cuna de la entomofagia mexicana: chapulines, chinicuiles y escamoles forman parte de la dieta ancestral. El chilopani es su bebida ceremonial más representativa.',
+        platillos: ['Chilopani', 'Escamoles al Epazote', 'Atole de Guayaba']
+      },
+      pachuca: {
+        nombre: 'Pachuca de Soto',
+        region: 'Capital del Estado · Centro-Este',
+        descripcion: 'Capital de Hidalgo y ciudad donde convergen las tradiciones culinarias de todo el estado. Los pastes —herencia de los mineros cornualleses— y los buñuelos de feria son emblemas de su cultura gastronómica.',
+        platillos: ['Pastes Hidalguenses', 'Buñuelos con Piloncillo', 'Café de Olla']
+      }
+    };
 
-    function injectExtraRecipes() {
-      // Si script.js expuso un objeto RECIPES global, lo extendemos
-      if (window.RECIPES) {
-        Object.assign(window.RECIPES, window.EXTRA_RECIPES);
+    /* ============================================================
+       INICIALIZACIÓN
+       ============================================================ */
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ---- AOS ----
+      AOS.init({ duration: 750, once: true, offset: 80 });
+
+      // ---- LOADER ----
+      setTimeout(() => {
+        document.getElementById('loader-wrap').classList.add('hidden');
+      }, 800);
+
+      // ---- NAVBAR ----
+      const header = document.getElementById('header');
+      const toggle = document.getElementById('menuToggle');
+      const mainNav = document.getElementById('main-nav');
+
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 60);
+        const scrollY = window.scrollY;
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById('progress-bar').style.width = (scrollY / docH * 100) + '%';
+      });
+
+      toggle.addEventListener('click', function() {
+        mainNav.classList.toggle('open');
+        this.classList.toggle('open');
+      });
+      document.querySelectorAll('#main-nav ul li a').forEach(link => {
+        link.addEventListener('click', () => {
+          mainNav.classList.remove('open');
+          toggle.classList.remove('open');
+        });
+      });
+
+      // ---- SMOOTH SCROLL ----
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const target = document.querySelector(a.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            const navH = header.offsetHeight || 70;
+            const top = target.getBoundingClientRect().top + window.scrollY - navH - 8;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // ---- MAPA ----
+      const panel = document.getElementById('mapaInfoPanel');
+      const puntos = document.querySelectorAll('.mapa-punto');
+      if (panel && puntos.length) {
+        const show = (key) => {
+          const data = MAPA_INFO[key];
+          if (!data) return;
+          panel.innerHTML = `
+            <div class="mapa-info-content">
+              <span class="region-tag">📍 ${data.region}</span>
+              <h3>${data.nombre}</h3>
+              <p>${data.descripcion}</p>
+              <div class="platillos-list">
+                ${data.platillos.map(p => `<span class="platillo-chip">${p}</span>`).join('')}
+              </div>
+            </div>
+          `;
+        };
+        puntos.forEach(punto => {
+          const key = punto.dataset.info;
+          punto.addEventListener('click', () => show(key));
+          punto.addEventListener('mouseenter', () => show(key));
+        });
       }
 
-      // Registrar botones de las nuevas tarjetas para abrir modal propio
-      document.querySelectorAll('[data-dish="codornices"], [data-dish="bugambilia"], [data-dish="tortillas"], [data-dish="caracol"]')
-        .forEach(function(btn) {
-          btn.addEventListener('click', function () {
-            var dish = btn.dataset.dish || btn.closest('[data-dish]')?.dataset.dish;
-            if (dish) openExtraModal(dish);
+      // ---- STATS COUNTER ----
+      const numbers = document.querySelectorAll('.stat-number[data-target]');
+      if (numbers.length) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10);
+            const suffix = el.dataset.suffix || '';
+            const dur = 1400;
+            const step = 16;
+            const inc = target / (dur / step);
+            let cur = 0;
+            const tick = () => {
+              cur = Math.min(cur + inc, target);
+              el.textContent = Math.floor(cur).toLocaleString('es-MX') + suffix;
+              if (cur < target) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            observer.unobserve(el);
+          });
+        }, { threshold: 0.5 });
+        numbers.forEach(n => observer.observe(n));
+      }
+
+      // ---- MODAL DE RECETAS (contenido AMPLIADO) ----
+      const overlay = document.getElementById('modalOverlay');
+      const content = document.getElementById('modalContent');
+      const closeBtn = document.getElementById('modalClose');
+
+      const buildModal = (r) => {
+        return `
+          <div style="text-align:center;margin-bottom:2rem;">
+            <div style="font-size:5rem;margin-bottom:.8rem;">${r.emoji}</div>
+            <h2 style="font-family:Playfair Display,serif;font-size:2.8rem;font-weight:900;margin:0 0 .25rem;color:#fff;">${r.title}</h2>
+            <span style="font-size:1rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;">${r.tag}</span>
+          </div>
+
+          <h4 style="font-size:1.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:1.8rem 0 .8rem;">🏛 Historia</h4>
+          <p style="font-size:1.5rem;line-height:1.8;color:rgba(255,255,255,.85);margin-bottom:1.8rem;">${r.historia}</p>
+
+          <h4 style="font-size:1.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:1.8rem 0 .8rem;">🌿 Ingredientes</h4>
+          <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;list-style:none;padding:0;margin-bottom:1.8rem;">
+            ${r.ingredientes.map(i => `
+              <li style="display:flex;align-items:center;gap:.6rem;padding:.8rem 1rem;background:rgba(255,255,255,.04);border-radius:8px;font-size:1.4rem;color:rgba(255,255,255,.8);">
+                <span style="color:#D4A017;font-size:.8rem;">✦</span>${i}
+              </li>`).join('')}
+          </ul>
+
+          <h4 style="font-size:1.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:1.8rem 0 .8rem;">👨‍🍳 Preparación</h4>
+          <div style="display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.8rem;">
+            ${r.pasos.map((p, i) => `
+              <div style="display:flex;gap:.8rem;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border-radius:8px;border-left:3px solid #2E7D32;">
+                <span style="font-family:Montserrat,sans-serif;font-size:1.2rem;font-weight:800;color:#4CAF50;min-width:32px;">${String(i+1).padStart(2,'0')}</span>
+                <span style="font-size:1.4rem;color:rgba(255,255,255,.8);line-height:1.6;">${p}</span>
+              </div>`).join('')}
+          </div>
+
+          <h4 style="font-size:1.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:1.8rem 0 .8rem;">✨ Curiosidad</h4>
+          <div style="padding:1.8rem;background:linear-gradient(135deg,rgba(212,160,23,.08),rgba(212,160,23,.04));border:1px solid rgba(212,160,23,.2);border-radius:12px;font-size:1.5rem;color:rgba(255,255,255,.85);line-height:1.8;margin-bottom:1.8rem;">${r.curiosidad}</div>
+
+          <h4 style="font-size:1.2rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:1.8rem 0 .8rem;">💚 Beneficios</h4>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;">
+            ${r.beneficios.map(b => `
+              <div style="padding:1.2rem;background:rgba(46,125,50,.1);border:1px solid rgba(46,125,50,.25);border-radius:12px;text-align:center;font-size:1.4rem;color:rgba(255,255,255,.85);">${b}</div>
+            `).join('')}
+          </div>
+        `;
+      };
+
+      const openModal = (key) => {
+        const all = Object.assign({}, window.RECIPES, window.EXTRA_RECIPES || {});
+        const recipe = all[key];
+        if (!recipe) return;
+        content.innerHTML = buildModal(recipe);
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeModal = () => {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      document.querySelectorAll('.btn-recipe').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const dish = btn.dataset.dish || btn.closest('[data-dish]')?.dataset.dish;
+          if (dish) openModal(dish);
+        });
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (overlay) overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+      // ---- LIGHTBOX ----
+      const lightbox = document.getElementById('lightbox');
+      const lbContent = document.getElementById('lightboxContent');
+      const lbClose = document.getElementById('lightboxClose');
+
+      const openLightbox = (item) => {
+        const img = item.querySelector('.gal-img');
+        const label = item.querySelector('span')?.textContent || '';
+        if (img) {
+          lbContent.innerHTML = `
+            <img src="${img.src}" alt="${img.alt || label}">
+            <p class="lb-caption">${label}</p>
+          `;
+        } else {
+          const emoji = item.querySelector('.gal-emoji')?.textContent || '📷';
+          lbContent.innerHTML = `<div style="font-size:8rem;">${emoji}</div><p class="lb-caption">${label}</p>`;
+        }
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      document.querySelectorAll('.gal-item').forEach(item => {
+        item.addEventListener('click', () => openLightbox(item));
+      });
+
+      if (lbClose) lbClose.addEventListener('click', closeLightbox);
+      if (lightbox) lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+      // ---- GALERÍA FILTRO ----
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const galItems = document.querySelectorAll('.gal-item');
+      if (filterBtns.length && galItems.length) {
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            galItems.forEach(item => {
+              const match = filter === 'all' || item.dataset.cat === filter;
+              item.classList.toggle('hidden', !match);
+            });
           });
         });
-    }
+      }
 
-    function openExtraModal(dish) {
-      var r = window.EXTRA_RECIPES[dish];
-      if (!r) return;
+      // ---- FOOTER AÑO ----
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-      var overlay = document.getElementById('modalOverlay');
-      var content = document.getElementById('modalContent');
-      if (!overlay || !content) return;
-
-      content.innerHTML =
-        '<div style="text-align:center;margin-bottom:1.5rem;">' +
-          '<div style="font-size:4rem;margin-bottom:.5rem;">' + r.emoji + '</div>' +
-          '<h2 style="font-family:Montserrat,sans-serif;font-size:1.8rem;font-weight:900;margin:0 0 .25rem;">' + r.title + '</h2>' +
-          '<span style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;">' + r.tag + '</span>' +
-        '</div>' +
-
-        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">🏛 Historia</h4>' +
-        '<p style="font-size:.9rem;line-height:1.8;color:rgba(255,255,255,.85);margin-bottom:1.5rem;">' + r.historia + '</p>' +
-
-        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">🌿 Ingredientes</h4>' +
-        '<ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.4rem;list-style:none;padding:0;margin-bottom:1.5rem;">' +
-          r.ingredientes.map(function(i) {
-            return '<li style="display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;background:rgba(255,255,255,.04);border-radius:8px;font-size:.84rem;color:rgba(255,255,255,.8);">' +
-                     '<span style="color:#D4A017;font-size:.6rem;">✦</span>' + i + '</li>';
-          }).join('') +
-        '</ul>' +
-
-        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">👨‍🍳 Preparación</h4>' +
-        '<div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;">' +
-          r.pasos.map(function(p, i) {
-            return '<div style="display:flex;gap:.75rem;padding:.75rem;background:rgba(255,255,255,.03);border-radius:8px;border-left:2px solid #2E7D32;">' +
-                     '<span style="font-family:Montserrat,sans-serif;font-size:.78rem;font-weight:800;color:#4CAF50;min-width:24px;">' + String(i+1).padStart(2,'0') + '</span>' +
-                     '<span style="font-size:.84rem;color:rgba(255,255,255,.8);line-height:1.6;">' + p + '</span>' +
-                   '</div>';
-          }).join('') +
-        '</div>' +
-
-        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">✨ Curiosidad</h4>' +
-        '<div style="padding:1.2rem;background:linear-gradient(135deg,rgba(212,160,23,.08),rgba(212,160,23,.04));border:1px solid rgba(212,160,23,.2);border-radius:12px;font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:1.5rem;">' + r.curiosidad + '</div>' +
-
-        '<h4 style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4A017;margin:.5rem 0 .75rem;">💚 Beneficios</h4>' +
-        '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem;">' +
-          r.beneficios.map(function(b) {
-            return '<div style="padding:.9rem;background:rgba(46,125,50,.1);border:1px solid rgba(46,125,50,.25);border-radius:12px;text-align:center;font-size:.8rem;color:rgba(255,255,255,.85);">' + b + '</div>';
-          }).join('') +
-        '</div>';
-
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+      // ---- BACK TO TOP ----
+      if (!document.getElementById('back-top')) {
+        const btn = document.createElement('button');
+        btn.id = 'back-top';
+        btn.setAttribute('aria-label', 'Volver arriba');
+        btn.innerHTML = '<i class="fa fa-arrow-up"></i>';
+        btn.style.cssText = `
+          position: fixed; bottom: 3rem; right: 3rem;
+          width: 4.8rem; height: 4.8rem; border-radius: 50%;
+          background: linear-gradient(135deg, var(--orange), #c83a00);
+          color: #fff; font-size: 1.8rem;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer; border: none;
+          box-shadow: 0 6px 24px rgba(238,88,2,.4);
+          opacity: 0; visibility: hidden; transform: translateY(10px);
+          transition: opacity .3s, visibility .3s, transform .3s;
+          z-index: 800;
+        `;
+        document.body.appendChild(btn);
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        window.addEventListener('scroll', () => {
+          const show = window.scrollY > 400;
+          btn.style.opacity = show ? '1' : '0';
+          btn.style.visibility = show ? 'visible' : 'hidden';
+          btn.style.transform = show ? 'translateY(0)' : 'translateY(10px)';
+        });
+      }
+    });
   </script>
-
-  <script src="script.js"></script>
 </body>
 </html>
