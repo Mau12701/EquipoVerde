@@ -90,7 +90,7 @@
       <div class="section-header light">
         <span class="section-label">Lo que presentamos</span>
         <h2>Platillos Tradicionales</h2>
-        <p>Siete recetas que condensan el alma de Hidalgo en cada bocado.</p>
+        <p>Ocho recetas que condensan el alma de Hidalgo en cada bocado.</p>
       </div>
       <div class="cards-grid cards-flex">
 
@@ -217,6 +217,24 @@
               <li>🌼 Prehispánica</li>
             </ul>
             <button class="btn-recipe" data-dish="tortillas">Ver receta</button>
+          </div>
+        </div>
+
+        <!-- Ceviche de Caracol -->
+        <div class="dish-card reveal" data-dish="caracol">
+          <div class="dish-card-img">
+            <div class="dish-emoji">🐚</div>
+          </div>
+          <div class="dish-card-body">
+            <span class="dish-tag">Mariscos</span>
+            <h3>Ceviche de Caracol</h3>
+            <p>Preparación costera que fusiona el caracol marino con cítricos y hierbas frescas. Una herencia de las regiones litorales de América Latina llevada a la mesa hidalguense.</p>
+            <ul class="dish-benefits">
+              <li>🔵 Alto en proteína</li>
+              <li>🔵 Bajo en grasa</li>
+              <li>🔵 Rico en minerales</li>
+            </ul>
+            <button class="btn-recipe" data-dish="caracol">Ver receta</button>
           </div>
         </div>
 
@@ -506,7 +524,7 @@
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item reveal">
-          <span class="stat-number" data-target="7">0</span>
+          <span class="stat-number" data-target="8">0</span>
           <span class="stat-label">Platillos Tradicionales</span>
         </div>
         <div class="stat-item reveal">
@@ -543,9 +561,12 @@
       </div>
 
       <div class="galeria-masonry" id="galeria">
-        <div class="gal-item reveal" data-cat="ingredientes">
+      <div class="gal-item reveal" data-cat="ingredientes">
     <img src="img/ingredientes.jpg" alt="ingredientes" class="gal-img">
     <span>Ingredientes</span></div>
+     <div class="gal-item reveal" data-cat="ingredientes">
+    <img src="img/ingredientes2.jpg" alt="ingredientes" class="gal-img">
+    <span>Ingredientes ceviche de caracol</span></div>
     <div class="gal-item gal-tall reveal" data-cat="preparacion">
     <img src="img/preparacion.jpg" alt="Preparando" class="gal-img">
     <span>Preparando</span></div>
@@ -561,7 +582,15 @@
     <div class="gal-item gal-tall reveal" data-cat="preparacion">
     <img src="img/Salsa de Xoconostle.jpeg" alt="Preparando" class="gal-img">
     <span>Preparando salsa de Xoconostle </span></div>
+      <div class="gal-item gal-tall reveal" data-cat="preparacion">
+    <img src="img/preparacion6.jpg" alt="Preparando" class="gal-img">
+    <span>Preparando ceviche de caracol </span></div>
 
+
+
+
+    <div class="galeria-masonry" id="galeria">
+        <div class="gal-item reveal" data-cat="ingredientes" data-img=".jpg"><div class="gal-emoji">🌵</div><span>Nopal fresco</span></div>
         <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🌵</div><span>Nopal fresco</span></div>
         <div class="gal-item gal-tall reveal" data-cat="preparacion"><div class="gal-emoji">👩‍🍳</div><span>Preparando el panqué</span></div>
         <div class="gal-item reveal" data-cat="ingredientes"><div class="gal-emoji">🍑</div><span>Xoconostle</span></div>
@@ -740,12 +769,13 @@
 
   <!-- ═══ Estilos extra: grid flexible + timeline mobile ═══ -->
   <style>
-    /* Grid 4 → flexible para 7 tarjetas */
+    /* Grid 4 → flexible para 8 tarjetas */
     .cards-flex {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.5rem;
     }
+    .dish-card[data-dish="caracol"] { border-bottom: 3px solid #01B2D4; }
 
     /* Timeline: colapso en mobile */
     @media (max-width: 680px) {
@@ -852,6 +882,37 @@
         curiosidad: 'La calabaza, junto con el maíz y el frijol, forma parte de "las tres hermanas", la base agrícola de Mesoamérica. Los pueblos prehispánicos no desperdiciaban nada de esta planta: comían la pulpa, las semillas, las guías e incluso la flor, como en esta receta.',
         beneficios: ['🌼 Rica en antioxidantes', '🥚 Proteína del huevo', '💪 Bajo en calorías', '🌿 Sin conservadores'],
       },
+
+      caracol: {
+        emoji: '🐚',
+        title: 'Ceviche de Caracol',
+        tag: 'Mariscos · Costa de América Latina',
+        historia: 'El ceviche de caracol surgió en las costas de América Latina y el Caribe, donde los habitantes aprovechaban el caracol marino como alimento. La receta evolucionó con el uso de cítricos introducidos por los españoles durante la colonia y se convirtió en un platillo típico de las regiones costeras. Su técnica de "cocción en frío" con jugo de limón es una de las más antiguas del continente americano.',
+        ingredientes: [
+          '500 g de caracol limpio y picado',
+          '1 taza de jugo de limón',
+          '1 tomate picado en cubos',
+          '½ cebolla morada o blanca picada finamente',
+          '1 chile serrano o jalapeño picado (opcional)',
+          'Cilantro fresco picado al gusto',
+          'Sal al gusto',
+          'Pimienta al gusto',
+          'Galletas saladas o tostadas para acompañar',
+        ],
+        pasos: [
+          'Lava y limpia bien el caracol.',
+          'Cuece el caracol en agua durante 20 a 30 minutos o hasta que esté suave.',
+          'Déjalo enfriar y pícalo en trozos pequeños.',
+          'Coloca el caracol en un recipiente y agrega el jugo de limón.',
+          'Deja reposar de 15 a 20 minutos para que absorba el sabor del limón.',
+          'Añade el tomate, la cebolla, el chile y el cilantro finamente picados.',
+          'Sazona con sal y pimienta al gusto.',
+          'Mezcla bien todos los ingredientes.',
+          'Sirve frío y acompaña con tostadas, galletas saladas o aguacate.',
+        ],
+        curiosidad: 'El caracol marino es uno de los moluscos más consumidos en las costas de México y el Caribe. Aporta zinc, hierro y yodo en cantidades importantes, y su concha ha sido utilizada desde tiempos prehispánicos como instrumento musical, adorno ceremonial y trueque comercial.',
+        beneficios: ['🔵 Alto en proteína magra', '🦪 Rico en zinc y yodo', '🍋 Vitamina C del limón', '💧 Bajo en grasa'],
+      },
     };
 
     /* Parche para inyectar datos extra en el sistema de modales de script.js.
@@ -868,7 +929,7 @@
       }
 
       // Registrar botones de las nuevas tarjetas para abrir modal propio
-      document.querySelectorAll('[data-dish="codornices"], [data-dish="bugambilia"], [data-dish="tortillas"]')
+      document.querySelectorAll('[data-dish="codornices"], [data-dish="bugambilia"], [data-dish="tortillas"], [data-dish="caracol"]')
         .forEach(function(btn) {
           btn.addEventListener('click', function () {
             var dish = btn.dataset.dish || btn.closest('[data-dish]')?.dataset.dish;
